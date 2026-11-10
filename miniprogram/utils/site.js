@@ -5,7 +5,7 @@ const SITE = {
   version: '1.1.1',
   mail: '',
   mailIsPlaceholder: true,
-  privacyUrl: '',
+  privacyUrl: 'https://8-321.github.io/subculture-persona/legal/privacy.html',
   operator: '',
   icp: ''
 };
