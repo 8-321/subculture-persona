@@ -1,0 +1,76 @@
+{
+  "__usePrivacyCheck__": true,
+  "pages": [
+    "pages/home/home",
+    "pages/tests/tests",
+    "pages/community/community",
+    "pages/shop/shop",
+    "pages/filter/filter",
+    "pages/mine/mine",
+    "pages/test-detail/test-detail",
+    "pages/question/question",
+    "pages/generating/generating",
+    "pages/result/result",
+    "pages/type/type",
+    "pages/card/card",
+    "pages/legal/legal",
+    "pages/cooperation/cooperation",
+    "pages/search/search",
+    "pages/category/category",
+    "pages/shop-detail/shop-detail",
+    "pages/shop-home/shop-home",
+    "pages/post-detail/post-detail",
+    "pages/post-publish/post-publish",
+    "pages/drafts/drafts",
+    "pages/merchant-apply/merchant-apply",
+    "pages/followed-shops/followed-shops",
+    "pages/favorites/favorites",
+    "pages/history/history",
+    "pages/reports/reports",
+    "pages/my-report/my-report",
+    "pages/settings/settings",
+    "pages/register/register",
+    "pages/interests/interests",
+    "pages/index/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#F5F5F6",
+    "navigationBarTitleText": "第二文化",
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom",
+    "backgroundColor": "#F5F5F6"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#8A8A93",
+    "selectedColor": "#141418",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/tests/tests",
+        "text": "测试"
+      },
+      {
+        "pagePath": "pages/community/community",
+        "text": "第二文化"
+      },
+      {
+        "pagePath": "pages/shop/shop",
+        "text": "商城"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json",
+  "lazyCodeLoading": "requiredComponents"
+}

@@ -1,0 +1,22 @@
+{
+  "name": "second-culture-miniprogram",
+  "version": "1.1.1",
+  "private": true,
+  "scripts": {
+    "verify": "node verify.js",
+    "smoke": "node tools/smoke_test.js",
+    "gate": "node tools/gate_test.js",
+    "calib": "node tools/calib_report.js",
+    "preflight": "node tools/launch_check.js",
+    "legal": "node tools/build_legal_site.js",
+    "handlers": "node tools/check_handlers.js",
+    "audit": "node tools/preview/audit_all.js",
+    "shot": "node tools/preview/render.js"
+  },
+  "dependencies": {
+    "miniprogram-automator": "^0.13.0"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.64.1"
+  }
+}

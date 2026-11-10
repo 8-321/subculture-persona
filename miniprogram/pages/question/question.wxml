@@ -1,0 +1,60 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar capr" style="padding-right:{{capR}}px">
+    <view class="navbtn" bindtap="onExit" hover-class="press">
+      <image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="qno"><text class="n">{{index + 1}}</text><text class="of"> / {{total}}</text></view>
+    <view class="timing">{{timeText}}</view>
+  </view>
+
+  <view class="track"><view class="fill" style="width:{{percent}}%"></view></view>
+
+  <!-- 题干：切题时整块侧向推入重播 -->
+  <view class="q {{swapCls}}">
+    <view class="tag">
+      <image class="tag-ic" src="/images/ic/image-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      {{q.topic}}
+    </view>
+    <view class="qt">{{q.text}}</view>
+  </view>
+
+  <!-- 选项区：2 × 2 · 选中项弹性微缩 -->
+  <view class="opts">
+    <view
+      class="opt {{picked === item.key ? 'on m-sel' : ''}}"
+      wx:for="{{q.options}}"
+      wx:key="key"
+      bindtap="onPick"
+      data-key="{{item.key}}"
+      hover-class="press"
+    >
+      <view class="im">
+        <image wx:if="{{item.img}}" class="opt-img" src="{{item.img}}" mode="aspectFill" />
+        <view wx:else class="opt-txt">
+          <view class="tt">{{item.title}}</view>
+          <view class="ss">{{item.sub}}</view>
+        </view>
+        <view class="no">{{index + 1}}</view>
+        <view wx:if="{{picked === item.key}}" class="check {{reduce ? '' : 'pop'}}">
+          <image src="/images/ic/check-white.png" mode="aspectFit" />
+        </view>
+      </view>
+      <view class="st">{{picked === item.key ? '已选' : '点击选择'}}</view>
+    </view>
+  </view>
+
+  <view class="safe-pad"></view>
+
+  <view class="action-bar">
+    <view class="btn-ghost {{index === 0 ? 'disabled' : ''}}" bindtap="onPrev">
+      <image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      上一题
+    </view>
+    <view class="btn-main {{picked ? '' : 'disabled'}}" bindtap="onNext">
+      {{index === total - 1 ? '看看结果' : '下一题'}}
+      <image src="/images/ic/fwd-white.png" mode="aspectFit" />
+    </view>
+  </view>
+</view>

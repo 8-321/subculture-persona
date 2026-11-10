@@ -1,0 +1,90 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="topbar capr" style="padding-right:{{capR}}px">
+    <view class="hl">
+      <image class="logo" src="{{dark ? '/images/ic/logo-white.png' : '/images/ic/logo-ink.png'}}" mode="aspectFit" />
+      <view class="bt">
+        <view class="brand">第二文化</view>
+        <view class="pagename">测评</view>
+      </view>
+    </view>
+    <view class="icbtn" bindtap="onSearch" hover-class="press">
+      <image class="ic-w" src="{{dark ? '/images/ic/search-white.png' : '/images/ic/search-ink.png'}}" mode="aspectFit" />
+    </view>
+  </view>
+
+  <!-- 分类 -->
+  <scroll-view class="cats" scroll-x show-scrollbar="{{false}}">
+    <view class="cat {{cur === item ? 'on' : ''}}" wx:for="{{cats}}" wx:key="*this" bindtap="onCat" data-cat="{{item}}">{{item}}</view>
+  </scroll-view>
+
+  <!-- 主推测试 -->
+  <view class="feat" bindtap="onTest" data-id="{{main.id}}" hover-class="press">
+    <image class="feat-img" src="{{main.img}}" mode="aspectFill" />
+    <view class="feat-scrim"></view>
+    <view class="feat-tx">
+      <view class="pill"><view class="dot"></view>主推测试</view>
+      <view class="feat-t">{{main.short || main.title}}</view>
+      <view class="feat-d">{{main.qcount}} 道题 · 约 {{main.minutes}} 分钟</view>
+    </view>
+    <view class="feat-go">开始</view>
+  </view>
+
+  <view class="sec">
+    <view class="t">人格图鉴</view>
+    <view class="m">14 型 · 点开看档案</view>
+  </view>
+  <scroll-view class="trail" scroll-x show-scrollbar="{{false}}">
+    <view class="tg2" wx:for="{{types}}" wx:key="id" bindtap="onType" data-id="{{item.id}}" hover-class="press">
+      <view class="tg2-im">
+        <image src="{{item.img}}" mode="aspectFill" />
+        <view class="tg2-no">{{item.serial}}</view>
+      </view>
+      <view class="tg2-n">{{item.cn}}</view>
+      <view class="tg2-k">{{item.nick}}</view>
+    </view>
+  </scroll-view>
+
+  <view class="sec">
+    <view class="t">更多测评</view>
+    <view class="m">共 {{list.length}} 个 · 按推荐顺序</view>
+  </view>
+
+  <view class="grid">
+    <view
+      class="tc m-pop m-st"
+      style="animation-delay:{{item._d}}ms"
+      wx:for="{{list}}"
+      wx:key="id"
+      bindtap="onTest"
+      data-id="{{item.id}}"
+      hover-class="press"
+    >
+      <view class="tc-im m-glare">
+        <image src="{{item.img}}" mode="aspectFill" />
+        <view class="tc-n">{{item.cat}}</view>
+
+      </view>
+      <view class="tc-a">{{item.title}}</view>
+      <view class="tc-b">{{item.qcount}} 题 · {{item.minutes}} 分钟<text wx:if="{{item.doneText}}"> · {{item.doneText}}</text></view>
+    </view>
+  </view>
+
+  <view wx:if="{{list.length === 0}}" class="empty">
+    <view class="e">这个分类还在筹备中</view>
+    <view class="s">先去看看别的分类，或者玩一下主推测试</view>
+  </view>
+
+  <view class="safe-pad"></view>
+
+  <view class="spark-layer">
+    <view
+      class="spark"
+      wx:for="{{sparks}}"
+      wx:key="id"
+      style="left:{{item.x}}px;top:{{item.y}}px;--sx:{{item.sx}}px;--sy:{{item.sy}}px;transform:scale({{item.s}})"
+    ></view>
+  </view>
+</view>
+<view class="fade-bottom {{dark ? 'dk' : ''}}"></view>

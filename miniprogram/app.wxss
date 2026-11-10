@@ -1,0 +1,290 @@
+/* 第二文化 · 全站设计 token 与通用组件
+   口径：375 设计宽 = 750rpx，设计 px × 2 = rpx
+   硬规则：无英文 / 全站只一套主色 #141418 / 照片真实色彩 / 无装饰小字 */
+
+@import "/styles/motion.wxss";
+
+page {
+  /* 浅色（默认） */
+  --bg: #F5F5F6;
+  --card: #FFFFFF;
+  --card-2: #F7F7FA;
+  --line: rgba(17, 17, 20, .07);
+  --line-2: rgba(17, 17, 20, .12);
+  --text: #111114;
+  --text-2: #6E6E76;
+  --text-3: #9C9CA4;
+  --ink: #141418;
+  --on-ink: #FFFFFF;
+  --scrim: rgba(245, 245, 246, 1);
+  --tabbar-bg: rgba(255, 255, 255, .92);
+  --shadow-card: 0 8rpx 28rpx rgba(17, 17, 20, .07);
+  --shadow-float: 0 24rpx 68rpx rgba(17, 17, 20, .16);
+
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, "PingFang SC", "HarmonyOS Sans SC", "Microsoft YaHei", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 页面根容器：主题在此切换（小程序无法给 page 节点加 class，统一用 .pg 根节点） */
+.pg {
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  box-sizing: border-box;
+}
+
+/* 深色：同一套变量覆盖 */
+.theme-dark {
+  --bg: #0E0E11;
+  --card: #17171B;
+  --card-2: #1E1E24;
+  --line: rgba(255, 255, 255, .10);
+  --line-2: rgba(255, 255, 255, .18);
+  --text: #F5F5F7;
+  --text-2: #A9A9B2;
+  --text-3: #7A7A83;
+  --ink: #F5F5F7;
+  --on-ink: #0E0E11;
+  --scrim: rgba(14, 14, 17, 1);
+  --tabbar-bg: rgba(23, 23, 27, .92);
+  --shadow-card: 0 8rpx 28rpx rgba(0, 0, 0, .34);
+  --shadow-float: 0 24rpx 68rpx rgba(0, 0, 0, .5);
+}
+
+/* 减弱动效：全站统一降级 */
+.reduce-motion view,
+.reduce-motion text,
+.reduce-motion image,
+.reduce-motion button {
+  transition-duration: 1ms !important;
+  animation-duration: 1ms !important;
+}
+
+/* ============ 布局容器 ============ */
+.wrap {
+  min-height: 100vh;
+  padding-bottom: 200rpx;
+  box-sizing: border-box;
+}
+.pad { padding-left: 40rpx; padding-right: 40rpx; }
+
+/* 页头：品牌优先 + 右侧操作 */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40rpx;
+  height: 88rpx;
+}
+.topbar .hl { display: flex; align-items: center; gap: 20rpx; }
+.topbar .brand {
+  font-size: 30rpx; font-weight: 800; letter-spacing: 2.8rpx; line-height: 1.25;
+  color: var(--text);
+}
+.topbar .pagename {
+  font-size: 21rpx; font-weight: 600; letter-spacing: 5.2rpx; line-height: 1.12;
+  color: var(--text-3); margin-top: 10rpx;
+}
+.topbar .act { display: flex; align-items: center; gap: 16rpx; }
+
+.authbtn {
+  height: 64rpx; padding: 0 26rpx; border-radius: 999rpx;
+  background: var(--card); border: 1rpx solid var(--line-2);
+  font-size: 25rpx; font-weight: 700; color: var(--text);
+  display: flex; align-items: center;
+}
+.icbtn {
+  width: 68rpx; height: 68rpx; border-radius: 50%;
+  background: var(--card); border: 1rpx solid var(--line);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2rpx 10rpx rgba(17, 17, 17, .05);
+  flex: 0 0 68rpx; box-sizing: border-box;
+}
+.icbtn image { width: 32rpx; height: 32rpx; }
+
+/* 二级页导航 */
+.navbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40rpx; height: 88rpx; box-sizing: border-box;
+  position: relative;
+}
+.navbtn, .navbar .tx, .navbar .rt, .navbar .pubbtn, .navbar .follow, .navbar .timing { flex: 0 0 auto; }
+.navbar .ttl { font-size: 30rpx; font-weight: 800; letter-spacing: 1rpx; color: var(--text);
+  flex: 1 1 auto; min-width: 0; text-align: center; }
+.navbar .tx { font-size: 26rpx; font-weight: 700; color: var(--text-2); }
+.navbtn {
+  width: 76rpx; height: 76rpx; border-radius: 50%;
+  background: var(--card); border: 1rpx solid var(--line-2);
+  display: flex; align-items: center; justify-content: center; flex: 0 0 76rpx;
+}
+.navbtn image { width: 34rpx; height: 34rpx; }
+
+/* ============ 卡片 ============ */
+.card {
+  background: var(--card);
+  border-radius: 40rpx;
+  box-shadow: var(--shadow-card);
+  padding: 32rpx;
+}
+.card-r24 { border-radius: 48rpx; }
+
+.sec-hd {
+  display: flex; align-items: baseline; justify-content: space-between;
+}
+.sec-hd .t { font-size: 29rpx; font-weight: 800; letter-spacing: .8rpx; color: var(--text); }
+.sec-hd .m { font-size: 23rpx; color: var(--text-3); display: flex; align-items: center; gap: 6rpx; }
+
+/* ============ 分类胶囊条 ============ */
+.cats {
+  display: flex; gap: 18rpx;
+  padding: 0 40rpx 4rpx;
+  white-space: nowrap;
+  overflow-x: auto;
+}
+.cats::-webkit-scrollbar { display: none; }
+.cat {
+  flex: 0 0 auto;
+  height: 68rpx; padding: 0 30rpx; border-radius: 999rpx;
+  background: var(--card); color: var(--text-2);
+  font-size: 26rpx; font-weight: 700; letter-spacing: .4rpx;
+  display: flex; align-items: center;
+  border: 1rpx solid var(--line);
+}
+.cat.on { background: var(--ink); color: var(--on-ink); border-color: var(--ink); }
+
+/* ============ 按钮 ============ */
+.btn-main {
+  height: 104rpx; border-radius: 999rpx;
+  background: var(--ink); color: var(--on-ink);
+  font-size: 33rpx; font-weight: 800; letter-spacing: .8rpx;
+  display: flex; align-items: center; justify-content: center; gap: 14rpx;
+}
+.btn-main image { width: 32rpx; height: 32rpx; }
+.btn-main.disabled { opacity: .38; }
+.btn-ghost {
+  height: 104rpx; border-radius: 999rpx;
+  background: transparent; border: 1rpx solid var(--line-2); color: var(--text-2);
+  font-size: 30rpx; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; gap: 14rpx;
+}
+.btn-ghost image { width: 32rpx; height: 32rpx; }
+.btn-ghost.disabled { opacity: .38; }
+
+/* 图上药丸 */
+.pill {
+  display: inline-flex; align-items: center; gap: 12rpx;
+  height: 52rpx; padding: 0 24rpx; border-radius: 999rpx;
+  background: rgba(17, 17, 20, .62);
+  border: 1rpx solid rgba(255, 255, 255, .16);
+  font-size: 22rpx; font-weight: 700; letter-spacing: 1.6rpx; color: #FFFFFF;
+}
+.pill .dot { width: 10rpx; height: 10rpx; border-radius: 50%; background: #FFFFFF; }
+
+/* ============ 列表行 ============ */
+.row {
+  display: flex; align-items: center; gap: 24rpx;
+  background: var(--card); border-radius: 40rpx;
+  padding: 24rpx 28rpx;
+  box-shadow: var(--shadow-card);
+}
+.row .tx { flex: 1; min-width: 0; }
+.row .t {
+  font-size: 27rpx; font-weight: 700; color: var(--text);
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.row .d { font-size: 22rpx; color: var(--text-3); margin-top: 8rpx; }
+.row .go image { width: 24rpx; height: 24rpx; }
+
+/* 通用小图标 */
+.ic-24 { width: 48rpx; height: 48rpx; border-radius: 50%; background: var(--card-2);
+  display: flex; align-items: center; justify-content: center; flex: 0 0 48rpx; }
+.ic-24 image { width: 28rpx; height: 28rpx; }
+
+/* ============ 状态 ============ */
+.empty {
+  padding: 120rpx 40rpx; text-align: center;
+}
+.empty .e { font-size: 27rpx; font-weight: 700; color: var(--text-2); }
+.empty .s { font-size: 23rpx; color: var(--text-3); margin-top: 16rpx; }
+
+.skeleton { background: var(--card-2); border-radius: 24rpx; }
+
+.safe-pad { height: 200rpx; }
+.fade-bottom {
+  position: fixed; left: 0; right: 0; bottom: 0; height: 176rpx; z-index: 8;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(245,245,246,0) 0%, rgba(245,245,246,.86) 66%, rgba(245,245,246,1) 88%);
+}
+page.theme-dark .fade-bottom {
+  background: linear-gradient(180deg, rgba(14,14,17,0) 0%, rgba(14,14,17,.86) 66%, rgba(14,14,17,1) 88%);
+}
+
+/* 文本 */
+.t-2 { color: var(--text-2); }
+.t-3 { color: var(--text-3); }
+.b { font-weight: 800; }
+
+/* 示例内容徽标：所有 demo=true 的内容必须显示，提示不是真实店铺/用户 */
+.sample-tag { position: absolute; left: 16rpx; top: 16rpx; z-index: 3;
+  padding: 6rpx 14rpx; border-radius: 999rpx; background: rgba(17,17,17,.72);
+  color: #fff; font-size: 19rpx; font-weight: 700; letter-spacing: .04em;
+  backdrop-filter: blur(4px); }
+.sample-tag.static { position: static; left: auto; top: auto; margin-left: 14rpx; }
+.sample-tag.inline { position: static; background: var(--line); color: var(--text-3); margin-left: 12rpx; }
+.sample-inline { position: static; margin-left: 12rpx; padding: 4rpx 12rpx; border-radius: 999rpx;
+  background: var(--line); color: var(--text-3); font-size: 19rpx; font-weight: 700; }
+.demo-note { margin: 20rpx 40rpx 0; padding: 16rpx 22rpx; border-radius: 20rpx; background: var(--card);
+  border: 1px dashed var(--line); font-size: 21rpx; line-height: 1.55; color: var(--text-3); }
+
+/* 单行策略：只给导航栏/按钮/徽标这类短标签；正文容器绝不允许 nowrap。 */
+.topbar .brand, .topbar .pagename, .navbar .ttl, .navbar .tx, .navbar .rt,
+.navbar .pubbtn, .navbar .follow, .navbar .timing, .navbar .qno,
+.authbtn, .icbtn, .navbtn, .pub, .cat, .sample-tag, .sample-inline,
+.sbar .ph, .search .ph, .mb, .pd-tg, .btn, .btn2, .link, .undo, .seg .g {
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+
+/* 多行标题：支持时做均衡断行，避免末行只剩一两个字（不支持则自动忽略） */
+.t3, .tt2, .ct, .tg-a, .tt1, .ttl, .rc-n, .qt, .h-n, .big, .tc-a { 
+  text-wrap: balance;
+}
+
+/* 说明性长句：支持时避免末行只剩两三个字 */
+.note, .tip, .sub, .sh-s, .id-s, .t2, .p, .lead, .desc, .ev {
+  text-wrap: pretty;
+}
+
+/* 正文一律允许换行；长链接/长英文串也不许顶破卡片 */
+.pg, .card, .row, .tx, .bd, .bd2, .t, .d, .s, .p, .li, .ev, .desc, .lead, .note, .ft {
+  word-break: break-word; overflow-wrap: break-word;
+}
+
+/* 防止 width:100% + padding 把卡片撑出屏幕 */
+view, scroll-view, swiper, swiper-item, button, input, textarea {
+  box-sizing: border-box;
+}
+/* 按钮类短标签用 inline-flex 居中，行高等于高度时不会出现半行/第二行 */
+.navbar .tx, .navbar .rt, .navbar .pubbtn, .navbar .follow, .navbar .timing, .authbtn {
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.navbar .ttl, .navbar .tx, .navbar .rt, .navbar .pubbtn, .navbar .follow, .navbar .timing,
+.topbar .brand, .authbtn, .sbar .ph, .search .ph { line-height: 1.25; }
+
+/* 胶囊让位（兜底）：内联 style 万一没生效，这个双类规则也会把右侧控件推到胶囊左边 */
+.navbar.capr, .topbar.capr { padding-right: 200rpx; box-sizing: border-box; }
+
+/* 品牌字不截断：只有两三个字，纵向留出字形余量，避免真机字体度量把底部切掉 */
+.topbar .brand, .topbar .pagename { overflow: visible; text-overflow: clip; }
+.cat { overflow: visible; text-overflow: clip; }
+
+/* 触发热区：图标按钮视觉 34–38px，热区补到 ≥44px（不改变视觉尺寸） */
+.navbtn, .icbtn, .authbtn, .navbar .follow { position: relative; }
+.navbtn::after, .icbtn::after {
+  content: ""; position: absolute; left: -16rpx; right: -16rpx; top: -16rpx; bottom: -16rpx;
+}
+/* 文字胶囊只向上/下补热区，避免和相邻按钮的横换热区重叠 */
+.authbtn::after, .navbar .follow::after {
+  content: ""; position: absolute; left: 0; right: 0; top: -16rpx; bottom: -16rpx;
+}

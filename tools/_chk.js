@@ -1,0 +1,12 @@
+global.wx = { getStorageSync: () => '', setStorageSync: () => {} };
+global.getApp = () => ({ globalData: { demoStats: true } });
+const Engine = require('../miniprogram/utils/engine.js');
+const TM = require('../miniprogram/utils/typemedia.js');
+const bank = require('../miniprogram/data/bank.js');
+const qs = bank.bank || bank;
+const answers = qs.map(q => ({ qid: q.id, key: q.options[0].key }));
+const rep = Engine.buildReport('main', answers);
+console.log('type id/code/name:', rep.type.id, rep.type.code, rep.type.name);
+console.log('serial:', TM.serial(rep.type), 'img:', TM.img(rep.type), 'index:', TM.index(rep.type));
+console.log('serial field in report:', rep.serial);
+console.log('matched:', rep.matched);

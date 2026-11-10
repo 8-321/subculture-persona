@@ -1,0 +1,10 @@
+const fs=require('fs');
+let s=fs.readFileSync('miniprogram/data/content.js','utf8');
+s=s.replace(/,\s*services:\s*\[[^\]]*\]/g,'');
+const oldGroup="  {\n    key: 'service', name: '服务', multi: true, field: 'services',\n    items: ['现货', '支持定制', '七天无理由', '手工制作']\n  }\n";
+if(s.indexOf(oldGroup)<0) throw new Error('service group not found');
+s=s.replace(oldGroup,'');
+s=s.replace("key: 'size', name: '尺码', multi: true, field: 'sizes'","key: 'size', name: '版型', multi: true, field: 'sizes'");
+s=s.replace("  {\n    k: 'sold', n: '销量优先', d: '卖得多的排前面' },\n","");
+fs.writeFileSync('miniprogram/data/content.js',s,'utf8');
+console.log('content cleaned');

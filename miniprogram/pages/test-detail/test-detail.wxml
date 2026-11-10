@@ -1,0 +1,50 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar capr" style="padding-right:{{capR}}px">
+    <view class="navbtn" bindtap="onBack" hover-class="press">
+      <image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="ttl">测试详情</view>
+    <button class="navbtn share-btn" open-type="share" hover-class="press">
+      <image src="/images/ic/share-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </button>
+  </view>
+
+  <view class="crumb">测评 › {{test.cat}}</view>
+
+  <view class="cover">
+    <image src="{{test.img}}" mode="aspectFill" />
+    <view class="cv-sc"></view>
+    <view class="pill"><view class="dot"></view>{{test.cat}}测试</view>
+  </view>
+
+  <view class="h1">{{test.title}}</view>
+  <view class="meta">{{test.qcount}} 题 · 约 {{test.minutes}} 分钟<text wx:if="{{doneText}}"> · {{doneText}}</text></view>
+  <view class="lead">{{test.desc}}</view>
+
+  <view class="card ask">
+    <view class="t">你会被问到</view>
+    <view class="li" wx:for="{{test.samples}}" wx:key="*this">
+      <view class="dt"></view>
+      <text>{{item}}</text>
+    </view>
+    <view class="ft">共 {{test.qcount}} 题，全部为单选，答完立即出结果</view>
+  </view>
+
+  <view class="note">测试结果会保存到「我的 · 测试报告」，随时可以回看</view>
+
+  <view class="safe-pad"></view>
+
+  <!-- 底栏：收藏 + 开始测试 -->
+  <view class="bar">
+    <view class="cbtn" bindtap="onFav" hover-class="press">
+      <image src="{{fav ? '/images/ic/heart-fill-ink.png' : '/images/ic/heart-ink.png'}}" mode="aspectFit" />
+    </view>
+    <view class="btn {{reduce ? '' : 'pop'}}" bindtap="onStart">
+      <text wx:if="{{!resume}}">开始测试</text>
+      <text wx:else>继续答题 · 已答 {{resumeDone}} / {{test.qcount}} 题</text>
+      <image src="/images/ic/fwd-white.png" mode="aspectFit" />
+    </view>
+  </view>
+</view>

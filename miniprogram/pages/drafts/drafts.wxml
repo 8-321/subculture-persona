@@ -1,0 +1,31 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar capr" style="padding-right:{{capR}}px">
+    <view class="navbtn" bindtap="onBack" hover-class="press"><image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" /></view>
+    <view class="ttl">我的草稿</view>
+    <view class="new" bindtap="onNew">写投稿</view>
+  </view>
+
+  <view wx:if="{{list.length === 0}}" class="empty">
+    <view class="e-t">还没有草稿</view>
+    <view class="e-s">写下的图文会先存在这台手机，不会自动上传。</view>
+    <view class="e-b" bindtap="onNew">写第一篇</view>
+  </view>
+
+  <view wx:else class="list">
+    <view class="d" wx:for="{{list}}" wx:key="id" bindtap="onOpen" bindlongpress="onDel" data-id="{{item.id}}" hover-class="press">
+      <image wx:if="{{item.cover}}" class="cv" src="{{item.cover}}" mode="aspectFill" />
+      <view wx:else class="cv ph">草稿</view>
+      <view class="tx">
+        <view class="t">{{item.title}}</view>
+        <view class="b">{{item.body}}</view>
+        <view class="m">{{item.time}} · {{item.count}} 张图</view>
+      </view>
+      <image class="go" src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="hint">长按草稿可以删除</view>
+  </view>
+
+  <view class="safe-pad"></view>
+</view>

@@ -1,0 +1,27 @@
+.status-space { width: 100%; }
+.navbar { display: flex; align-items: center; justify-content: space-between; padding: 0 40rpx; margin-top: 8rpx; }
+.ttl { font-family: "Songti SC", "STSong", "Noto Serif SC", serif; font-size: 27rpx; font-weight: 700; letter-spacing: 5rpx; }
+.navbtn { width: 76rpx; height: 76rpx; border-radius: 50%; background: var(--card);
+  border: 1rpx solid var(--line-2); display: flex; align-items: center; justify-content: center; flex: 0 0 76rpx; }
+.navbtn image { width: 34rpx; height: 34rpx; }
+.ph { width: 76rpx; height: 76rpx; }
+.press { opacity: .82; }
+
+.lead { padding: 24rpx 40rpx 0; }
+.lead-t { font-family: "Songti SC", "STSong", "Noto Serif SC", serif; font-size: 34rpx; font-weight: 700; line-height: 1.5; }
+.lead-s { font-size: 21rpx; color: var(--text-3); margin-top: 10rpx; letter-spacing: 1rpx; }
+
+.frame { margin: 30rpx 54rpx 0; padding: 10rpx; background: var(--card);
+  border: 1rpx solid var(--line); box-shadow: 0 18rpx 48rpx rgba(17,17,20,.10); }
+.cv { display: block; width: 100%; height: 978rpx; background: #F2EFE9; }
+
+.ops { display: flex; gap: 18rpx; padding: 40rpx 54rpx 0; }
+.save, .share { flex: 1; height: 92rpx; border-radius: 999rpx; display: flex; align-items: center; justify-content: center;
+  font-size: 27rpx; font-weight: 800; letter-spacing: 1rpx; padding: 0; margin: 0; line-height: 1; }
+.save { background: var(--ink); color: var(--on-ink); }
+.save.off { opacity: .5; }
+.share { background: transparent; color: var(--text); border: 1rpx solid var(--line-2); }
+.share::after { border: none; }
+
+.hint { padding: 28rpx 54rpx 0; font-size: 20rpx; line-height: 1.6; color: var(--text-3); text-align: center; }
+.safe-pad { height: 80rpx; }

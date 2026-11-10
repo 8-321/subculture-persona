@@ -1,0 +1,26 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar capr" style="padding-right:{{capR}}px">
+    <view class="navbtn" bindtap="onBack" hover-class="press"><image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" /></view>
+    <view class="ttl">人格名片</view>
+    <view class="ph"></view>
+  </view>
+
+  <view class="lead">
+    <view class="lead-t">把你的人格，做成一张可以保存的名片</view>
+    <view class="lead-s">只放人格信息，不放你的微信资料</view>
+  </view>
+
+  <view class="frame">
+    <canvas type="2d" id="card" class="cv"></canvas>
+  </view>
+
+  <view class="ops">
+    <view class="save {{saving ? 'off' : ''}}" bindtap="onSave" hover-class="press">{{saving ? '正在保存' : '保存到相册'}}</view>
+    <button class="share" open-type="share" hover-class="press">分享给朋友</button>
+  </view>
+
+  <view class="hint">名片是一张图片，不会上传到任何服务器。保存后可在相册里转发。</view>
+  <view class="safe-pad"></view>
+</view>

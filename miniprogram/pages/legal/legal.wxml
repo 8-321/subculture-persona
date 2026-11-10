@@ -1,0 +1,44 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar capr" style="padding-right:{{capR}}px">
+    <view class="navbtn" bindtap="onBack" hover-class="press"><image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" /></view>
+    <view class="ttl">{{title}}</view>
+    <view class="ph"></view>
+  </view>
+
+  <view class="tabs">
+    <view class="tab {{type === 'privacy' ? 'on' : ''}}" bindtap="onSwitch" data-t="privacy">隐私政策</view>
+    <view class="tab {{type === 'terms' ? 'on' : ''}}" bindtap="onSwitch" data-t="terms">用户协议</view>
+    <view class="tab {{type === 'minor' ? 'on' : ''}}" bindtap="onSwitch" data-t="minor">未成年人</view>
+  </view>
+
+  <view class="head">
+    <view class="kick">{{kicker}}</view>
+    <view class="big">{{title}}</view>
+    <view class="date">更新于 {{updated}}</view>
+  </view>
+
+  <view class="body">
+    <view class="sec" wx:for="{{sections}}" wx:key="h">
+      <view class="sec-h">{{item.h}}</view>
+      <view class="p" wx:for="{{item.ps}}" wx:for-item="p" wx:key="*this">{{p}}</view>
+    </view>
+
+    <view wx:if="{{type === 'privacy'}}" class="contract" bindtap="onOpenContract">
+      <image class="ct-ic" src="/images/ic/info-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      查看微信平台的隐私保护指引
+      <image class="ct-go" src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+
+    <view class="contact">
+      <view class="ct-h">联系我们</view>
+      <view class="ct-p">邮箱（点此复制）</view>
+      <view wx:if="{{contact}}" class="ct-mail" bindtap="onCopyEmail">{{contact}}</view>
+      <view wx:else class="ct-mail off">邮箱上线前公布</view>
+      <view class="ct-p">也可以通过「我的－设置－意见反馈」联系我们。</view>
+    </view>
+  </view>
+
+  <view class="safe-pad"></view>
+</view>

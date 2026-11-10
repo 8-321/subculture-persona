@@ -1,0 +1,88 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar capr" style="padding-right:{{capR}}px">
+    <view class="navbtn" bindtap="onBack" hover-class="press">
+      <image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="navmid">
+      <image wx:if="{{!isArticle}}" class="av" src="{{item.shopImg || item.img}}" mode="aspectFill" />
+      <text class="nm">{{item.shop || item.author}}</text>
+    </view>
+    <view wx:if="{{!isArticle}}" class="follow {{followed ? 'on' : ''}}" bindtap="onFollow">{{followed ? '已关注' : '关注'}}</view>
+    <!-- 举报入口：内容类小程序必须有，且在首屏可达（P0 合规） -->
+    <view class="navbtn more" bindtap="onMore" hover-class="press">
+      <image src="/images/ic/more-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+  </view>
+
+  <swiper class="hero t2-hero" bindchange="onShot">
+    <swiper-item wx:for="{{shots}}" wx:key="*this">
+      <image src="{{item}}" mode="aspectFill" />
+    </swiper-item>
+  </swiper>
+  <view wx:if="{{shots.length > 1}}" class="pg-no">{{cur + 1}} / {{shots.length}}</view>
+
+  <view class="t3 t2-text">{{item.title}}</view>
+  <view class="tmeta">
+    <text wx:if="{{item.isShop}}" class="mb">商家</text>
+    <text wx:if="{{item.demo}}" class="mb sample-inline">示例内容</text>
+    <text wx:if="{{item.demo}}" class="tmeta-n">演示排版用，非真实用户发布</text>
+  </view>
+  <view class="body3 t2-text">{{item.body}}</view>
+
+  <view class="tgs">
+    <view class="tg" wx:for="{{item.topics}}" wx:key="*this"># {{item}}</view>
+  </view>
+
+  <block wx:if="{{!isArticle}}">
+    <!-- 同款好物 -->
+    <view class="pdc" bindtap="onGoods">
+      <image class="pim" src="{{item.goods.img}}" mode="aspectFill" />
+      <view class="ptx">
+        <view class="pt">{{item.goods.name}}</view>
+        <view class="ps">{{item.goods.sub}}</view>
+        <view class="pp" wx:if="{{goodsPriceText}}">{{goodsPriceText}}</view>
+        <view class="pp np" wx:else>价格以商家为准</view>
+      </view>
+      <view class="go">去看看
+        <image src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      </view>
+    </view>
+  </block>
+
+  <view class="safe-pad"></view>
+
+  <!-- 底栏：观看数 + 收藏 + 点赞（数字全部走闸门） -->
+  <view class="actbar">
+    <view wx:if="{{viewsText}}" class="stat">
+      <image src="/images/ic/eye-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      {{viewsText}}
+    </view>
+    <view class="br">
+      <view class="fav {{faved ? 'on' : ''}} {{_beat ? 'm-heart' : ''}}" bindtap="onFav" hover-class="press">
+        <image src="{{faved ? '/images/ic/heart-fill-ink.png' : '/images/ic/heart-ink.png'}}" mode="aspectFit" />
+        收藏<text wx:if="{{favText}}"> {{favText}}</text>
+      </view>
+      <view class="lik {{liked ? 'on' : ''}} {{_beat ? 'm-heart' : ''}}" bindtap="onLike" hover-class="press">
+        <image src="{{liked ? '/images/ic/heart-fill-ink.png' : '/images/ic/heart-ink.png'}}" mode="aspectFit" />
+        点赞<text wx:if="{{likeText}}"> {{likeText}}</text>
+      </view>
+      <button class="share2" open-type="share" hover-class="press">
+        <image src="/images/ic/share-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      </button>
+    </view>
+  </view>
+
+  <!-- 举报半屏 -->
+  <view wx:if="{{reportOpen}}" class="msk" bindtap="onCloseReport"></view>
+  <view class="sheet {{reportOpen ? 'on' : ''}}">
+    <view class="sh-t">举报这条内容</view>
+    <view class="sh-s">举报只存在这台手机，用于先隐藏内容；后台接入后才真正受理。</view>
+    <view class="opt" wx:for="{{reasons}}" wx:key="*this" data-r="{{item}}" bindtap="onReport" hover-class="press">
+      {{item}}
+      <image src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="sh-c" bindtap="onCloseReport" hover-class="press">取消</view>
+  </view>
+</view>

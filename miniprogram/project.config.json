@@ -1,0 +1,90 @@
+{
+  "description": "第二文化 · 亚文化人格测试小程序",
+  "appid": "wx669bf4366c75627d",
+  "compileType": "miniprogram",
+  "libVersion": "3.6.6",
+  "projectname": "second-culture",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "newFeature": true,
+    "coverView": true,
+    "nodeModules": false,
+    "autoAudits": false,
+    "showShadowRootInWxmlPanel": true,
+    "scopeDataCheck": false,
+    "uglifyFileName": false,
+    "checkInvalidKey": true,
+    "checkSiteMap": true,
+    "uploadWithSourceMap": true,
+    "compileHotReLoad": false,
+    "lazyloadPlaceholderEnable": false,
+    "useMultiFrameRuntime": true,
+    "useApiHook": true,
+    "useApiHostProcess": true,
+    "showES6CompileOption": false,
+    "useCompilerPlugins": false,
+    "ignoreUploadUnusedFiles": true,
+    "compileWorklet": false,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
+  },
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "首页",
+          "pathName": "pages/home/home",
+          "query": "",
+          "scene": null
+        },
+        {
+          "name": "答题",
+          "pathName": "pages/question/question",
+          "query": "id=main",
+          "scene": null
+        },
+        {
+          "name": "结果",
+          "pathName": "pages/result/result",
+          "query": "",
+          "scene": null
+        }
+      ]
+    }
+  },
+  "simulatorPluginLibVersion": {},
+  "packOptions": {
+    "ignore": [
+      {
+        "type": "folder",
+        "value": "tools"
+      },
+      {
+        "type": "suffix",
+        "value": ".py"
+      },
+      {
+        "type": "suffix",
+        "value": ".md"
+      }
+    ],
+    "include": []
+  },
+  "editorSetting": {}
+}

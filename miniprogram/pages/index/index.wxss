@@ -1,0 +1,2 @@
+.boot { min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+.tip { font-size: 26rpx; color: var(--text-3); letter-spacing: 2rpx; }

@@ -1,0 +1,46 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar">
+    <view class="navbtn" bindtap="onBack" hover-class="press">
+      <image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="ttl">我的报告</view>
+    <view class="ph"></view>
+  </view>
+
+  <view class="card sum">
+    <image class="ic" src="/images/ic/bookmark-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    <view class="stx">
+      <view class="t">已生成 {{list.length}} 份人格报告</view>
+      <view class="d">{{subTitle}}</view>
+    </view>
+  </view>
+
+  <view class="card rep" wx:for="{{list}}" wx:key="id" bindtap="onOpen" data-id="{{item.id}}" bindlongpress="onDelete" data-index="{{index}}">
+    <view class="hd">
+      <view class="t">{{item.typeName}}</view>
+      <view class="d">{{item.dateText}}</view>
+    </view>
+    <view class="dims">
+      <view class="dm" wx:for="{{item.dimList}}" wx:for-item="d" wx:key="key">
+        <view class="lb"><text>{{d.name}}</text><text class="v">{{d.value}}</text></view>
+        <view class="tk"><view class="fill" style="width:{{d.value}}%"></view></view>
+      </view>
+    </view>
+    <view class="ft">
+      <text>{{item.footText}}</text>
+      <text class="go">查看报告 ›</text>
+    </view>
+  </view>
+
+  <view wx:if="{{list.length === 0}}" class="empty">
+    <view class="e">还没有测试报告</view>
+    <view class="s">3 分钟测一次，报告会自动保存到这里</view>
+    <view class="a" bindtap="onGoTest">去测一测</view>
+  </view>
+
+  <view wx:if="{{list.length > 0}}" class="hint">长按一份报告可以删除</view>
+  <view class="safe-pad"></view>
+</view>
+<view class="fade-bottom {{dark ? 'dk' : ''}}"></view>

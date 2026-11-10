@@ -1,0 +1,53 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar">
+    <view class="navbtn" bindtap="onBack" hover-class="press">
+      <image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="ttl">商家登记</view>
+    <view class="ph"></view>
+  </view>
+
+  <view class="hero">
+    <view>把你的店铺</view>
+    <view>带进第二文化</view>
+  </view>
+  <view class="hsub">先登记资料，由运营者人工联系。当前版本没有在线审核后台，也不会自动开通发布权限。</view>
+
+  <view class="lb">店铺名称</view>
+  <input class="fld" placeholder="请输入店铺名称" placeholder-class="phc" value="{{name}}" bindinput="onName" />
+
+  <view class="lb">你的身份</view>
+  <view class="types">
+    <view class="tp {{item.on ? 'on' : ''}}" wx:for="{{typeView}}" wx:key="k" bindtap="onType" data-k="{{item.k}}">
+      <view class="tn">{{item.n}}</view>
+      <view class="td">{{item.d}}</view>
+    </view>
+  </view>
+
+  <view class="lb">主营品类（可多选）</view>
+  <view class="chips">
+    <view class="cp {{item.on ? 'on' : ''}}" wx:for="{{catView}}" wx:key="name" bindtap="onCat" data-c="{{item.name}}">{{item.name}}</view>
+  </view>
+
+  <view class="lb">联系方式</view>
+  <input class="fld" placeholder="手机号或邮箱" placeholder-class="phc" value="{{contact}}" bindinput="onContact" />
+  <view class="err" wx:if="{{contactErr}}">{{contactErr}}</view>
+
+  <block wx:if="{{type !== 'person'}}">
+    <view class="lb">统一社会信用代码</view>
+    <input class="fld" placeholder="营业执照上 18 位代码" placeholder-class="phc" value="{{credit}}" bindinput="onCredit" maxlength="18" />
+    <view class="err" wx:if="{{creditErr}}">{{creditErr}}</view>
+    <view class="tip" wx:else>按国家标准校验位检查，抄错一位会当场提示。</view>
+  </block>
+
+  <view class="lb">店铺简介</view>
+  <textarea class="area" placeholder="说说你的店在做什么，支持来图定制吗" placeholder-class="phc"
+    value="{{intro}}" bindinput="onIntro" maxlength="300" auto-height />
+
+  <view class="cta {{canSubmit ? '' : 'off'}}" bindtap="onSubmit">保存登记信息</view>
+  <view class="note">资料只保存在本机，不会自动上传。复制后发给运营者，才会进入人工招募名单。</view>
+
+  <view class="safe-pad"></view>
+</view>

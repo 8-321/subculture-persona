@@ -1,0 +1,180 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar capr" style="padding-right:{{capR}}px">
+    <view class="navbtn" bindtap="onBack" hover-class="press">
+      <image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="navright">
+      <button class="navbtn share-btn" open-type="share" hover-class="press">
+        <image src="/images/ic/share-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      </button>
+    </view>
+  </view>
+
+  <!-- 人格档案：一张图、一个名字、一句判词，先让人认出自己 -->
+  <view class="hero t2-hero" bindtap="onType" hover-class="press">
+    <image src="{{report.img}}" mode="aspectFill" />
+    <view class="hero-sc"></view>
+    <view class="arch">
+      <text class="arch-k">人格档案</text>
+      <text class="arch-n">{{serial}} / 14</text>
+    </view>
+    <view class="hero-tx">
+      <view class="eb t2-text">你的隐藏亚文化人格</view>
+      <view class="nm t2-text">{{nameAnim}}</view>
+      <view class="nick t2-text">{{report.type.nickname}} · {{report.type.symbol}}</view>
+      <view class="tag t2-text">{{report.type.tagline}}</view>
+    </view>
+    <view class="match">
+      <text class="match-k">匹配度</text>
+      <text class="match-v">{{matchedAnim}}%</text>
+    </view>
+  </view>
+
+  <view class="chips">
+    <view
+      class="chip m-pop m-st"
+      style="animation-delay:{{index * 40 + 120}}ms"
+      wx:for="{{report.tags}}"
+      wx:key="*this"
+    >{{item}}</view>
+  </view>
+
+  <view class="quote m-mask" style="animation-delay:420ms">「{{report.quote}}」</view>
+  <view wx:if="{{report.egg}}" class="egg m-rise" style="animation-delay:640ms">你也有一点 {{report.egg}} 的影子</view>
+
+  <!-- 四个维度：默认只给读数，点开才给解读 -->
+  <view class="card dims-card">
+    <view class="hd">
+      <view class="t">你的四个维度</view>
+      <view class="m">点任意一条看解读</view>
+    </view>
+    <view class="dim" wx:for="{{dimsAnim}}" wx:key="key" wx:for-index="i" bindtap="onDim" data-i="{{i}}" hover-class="press">
+      <view class="dim-top">
+        <text class="dim-n">{{item.name}}</text>
+        <text class="dim-lv">{{item.levelText}}</text>
+        <text class="dim-v">{{item.value}}</text>
+      </view>
+      <view class="dim-bar"><view class="dim-fill" style="width:{{item.value}}%"></view></view>
+      <view wx:if="{{dimOpen === i}}" class="dim-open">
+        <view class="dim-c">{{item.conclusion}}</view>
+        <view class="dim-x">{{item.lines[0]}}</view>
+        <view class="dim-x">{{item.lines[1]}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 为什么 -->
+  <view class="card why">
+    <view class="hd"><view class="t">为什么你是{{report.type.cn}}</view></view>
+    <view class="li" wx:for="{{report.why}}" wx:key="*this">
+      <view class="dt"></view>
+      <text>{{item}}</text>
+    </view>
+    <view class="ft">
+      <image class="ft-ic" src="/images/ic/info-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      结果仅供兴趣参考，不是心理诊断
+    </view>
+  </view>
+
+  <!-- 文化溯源：一条可核对的真实起源 -->
+  <view wx:if="{{culture}}" class="card origin">
+    <view class="hd">
+      <view class="t">这个亚文化从哪来</view>
+      <view class="m">{{culture.year}}</view>
+    </view>
+    <view class="org-line">{{culture.place}}</view>
+    <view class="org-ev">{{culture.event}}</view>
+    <view class="org-k">标志物</view>
+    <view class="org-m">{{culture.marker}}</view>
+    <view class="ft" bindtap="onCopySource">
+      <image class="ft-ic" src="/images/ic/info-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      出处：{{culture.host}} · 点此复制链接核对
+    </view>
+  </view>
+
+  <!-- 同类与反面：报告的出口 -->
+  <view wx:if="{{kin.match}}" class="kin">
+    <view class="kin-card" bindtap="onKin" data-code="{{kin.match.code}}" hover-class="press">
+      <image src="{{kin.match.img}}" mode="aspectFill" />
+      <view class="kin-sc"></view>
+      <view class="kin-tx">
+        <view class="kin-k">你的同类</view>
+        <view class="kin-n">{{kin.match.cn}} · {{kin.match.nick}}</view>
+      </view>
+    </view>
+    <view wx:if="{{kin.clash}}" class="kin-card" bindtap="onKin" data-code="{{kin.clash.code}}" hover-class="press">
+      <image src="{{kin.clash.img}}" mode="aspectFill" />
+      <view class="kin-sc"></view>
+      <view class="kin-tx">
+        <view class="kin-k">你的反面</view>
+        <view class="kin-n">{{kin.clash.cn}} · {{kin.clash.nick}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="h2">适合你的单品</view>
+  <view class="mini">
+    <view
+      class="mi m-pop m-st"
+      style="animation-delay:{{index * 26 + 80}}ms"
+      wx:for="{{goods}}"
+      wx:key="id"
+      bindtap="onGood"
+      data-id="{{item.id}}"
+    >
+      <view class="mi-im m-glare" hover-class="press">
+        <image src="{{item.img}}" mode="aspectFill" />
+        <view wx:if="{{item.demo}}" class="sample-tag">示例</view>
+      </view>
+      <view class="mi-bd">{{item.brand}}</view>
+      <view class="mi-nm">{{item.name}}</view>
+      <view class="mi-pc" wx:if="{{item.priceText}}">{{item.priceText}}</view>
+      <view class="mi-pc np" wx:else>价格以商家为准</view>
+    </view>
+  </view>
+
+  <view class="h2">可以试试看</view>
+  <view class="tips">
+    <view class="li" wx:for="{{report.tryout}}" wx:key="*this">
+      <view class="dt"></view><text>{{item}}</text>
+    </view>
+  </view>
+
+  <view class="h2">延伸阅读</view>
+  <view class="xlist">
+    <view
+      class="xr m-rise m-st"
+      style="animation-delay:{{index * 26 + 80}}ms"
+      wx:for="{{reads}}"
+      wx:key="id"
+      bindtap="onRead"
+      data-id="{{item.id}}"
+    >
+      <image class="th" src="{{item.img}}" mode="aspectFill" />
+      <view class="xt">
+        <view class="t">{{item.title}}</view>
+        <view class="d">{{item.cat}} · {{item.time}}</view>
+      </view>
+      <image class="go" src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+  </view>
+
+  <view class="endnote">{{report.disclaimer}}</view>
+  <view class="safe-pad"></view>
+
+  <!-- 底栏：收藏 + 名片 + 分享 -->
+  <view class="bar">
+    <view class="cbtn {{fav ? 'on' : ''}}" bindtap="onFav" hover-class="press">
+      <image src="{{fav ? '/images/ic/heart-fill-ink.png' : '/images/ic/heart-ink.png'}}" mode="aspectFit" />
+    </view>
+    <view class="btn-card" bindtap="onCard" hover-class="press">
+      <text>生成人格名片</text>
+      <image src="/images/ic/fwd-ink.png" mode="aspectFit" />
+    </view>
+    <button class="btn-share" open-type="share" hover-class="press">
+      <image src="/images/ic/share-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </button>
+  </view>
+</view>

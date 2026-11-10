@@ -1,0 +1,40 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar capr" style="padding-right:{{capR}}px">
+    <view class="navbtn" bindtap="onBack" hover-class="press">
+      <image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="ttl">关注的商家</view>
+    <view class="tx" bindtap="onManage">{{managing ? '完成' : '管理'}}</view>
+  </view>
+
+  <view class="search">
+    <image class="s-ic" src="/images/ic/search-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    <input class="inp" placeholder="搜索关注的商家" placeholder-class="phc" value="{{kw}}" bindinput="onInput" />
+  </view>
+
+  <view class="list">
+    <view class="row" wx:for="{{list}}" wx:key="id" bindtap="onShop" data-name="{{item.name}}" hover-class="press">
+      <image class="av" src="{{item.img}}" mode="aspectFill" />
+      <view class="tx">
+        <view class="n">{{item.name}}</view>
+        <view class="m">{{item.meta}}</view>
+      </view>
+      <view class="fo {{managing ? 'del' : ''}}" catchtap="onUnfollow" data-name="{{item.name}}">
+        <image src="/images/ic/{{managing ? 'close' : 'check'}}-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+        {{managing ? '取消关注' : '已关注'}}
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{list.length === 0}}" class="empty">
+    <view class="e">还没有关注商家</view>
+    <view class="s">在店铺页或帖子页点「关注」即可添加</view>
+    <view class="eb" bindtap="onShopList" hover-class="press">去商城逛逛</view>
+  </view>
+
+  <view wx:if="{{list.length > 0}}" class="hint">共 {{list.length}} 家 · 点右侧「取消关注」可移出</view>
+  <view class="safe-pad"></view>
+</view>
+<view class="fade-bottom {{dark ? 'dk' : ''}}"></view>

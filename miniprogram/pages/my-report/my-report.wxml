@@ -1,0 +1,47 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar">
+    <view class="navbtn" bindtap="onBack" hover-class="press">
+      <image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="ttl">我的举报</view>
+    <view class="ph"></view>
+  </view>
+
+  <view wx:if="{{list.length > 0}}" class="card sum">
+    <image class="ic" src="/images/ic/trash-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    <view class="stx">
+      <view class="t">{{list.length ? '已记录 ' + list.length + ' 条举报' : '还没有举报记录'}}</view>
+      <view class="d">{{subTitle}}</view>
+    </view>
+  </view>
+
+  <view class="card rep" wx:for="{{list}}" wx:key="id">
+    <view class="hd" bindtap="onOpen" data-id="{{item.id}}">
+      <view class="t">{{item.title || item.id}}</view>
+      <view class="d">{{item.time}} · {{item.timesText}}</view>
+    </view>
+    <view class="rw">
+      <text class="k">理由</text>
+      <text class="v">{{item.reasonText}}</text>
+    </view>
+    <view class="rw">
+      <text class="k">状态</text>
+      <text class="v {{item.hidden ? 'warn' : ''}}">{{item.statusText}}</text>
+    </view>
+    <view class="ft">
+      <text class="s">同一条内容满 3 次，会先在这台手机上隐藏</text>
+      <text class="undo" bindtap="onUndo" data-id="{{item.id}}">撤销</text>
+    </view>
+  </view>
+
+  <view wx:if="{{list.length === 0}}" class="empty">
+    <view class="e">你还没举报过内容</view>
+    <view class="s">在帖子或文章页右上角点「···」，可以举报垃圾广告、侵权盗图等</view>
+  </view>
+
+  <view class="note">{{note}}</view>
+  <view class="safe-pad"></view>
+</view>
+<view class="fade-bottom {{dark ? 'dk' : ''}}"></view>

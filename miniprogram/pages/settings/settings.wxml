@@ -1,0 +1,146 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar">
+    <view class="navbtn" bindtap="onBack" hover-class="press">
+      <image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="ttl">设置</view>
+    <view class="ph"></view>
+  </view>
+
+  <!-- 资料卡 -->
+  <view class="card me">
+    <view class="av">{{first}}</view>
+    <view class="mtx">
+      <view class="t">{{user ? user.nickname : '还没有档案'}}</view>
+      <view class="d">{{user ? '本机档案 · 不上传、不同步' : '建档后可保存报告与收藏'}}</view>
+    </view>
+  </view>
+
+  <!-- 外观 -->
+  <view class="grp-card">
+    <view class="st">
+      <image class="ic" src="/images/ic/moon-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      <view class="t">深色模式</view>
+      <view class="sw {{dark ? 'on' : ''}}" bindtap="toggleTheme"><view class="knob"></view></view>
+    </view>
+
+    <view class="st col">
+      <view class="st-row">
+        <image class="ic" src="/images/ic/grid-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+        <view class="t">主题风格</view>
+        <view class="v">{{dark ? '深色' : '浅色'}} · 一键切换</view>
+      </view>
+      <view class="theme">
+        <view class="tp" bindtap="pickTheme" data-t="light">
+          <view class="pv"><view class="a"></view><view class="b"></view></view>
+          <view class="cap {{dark ? '' : 'on'}}">浅色</view>
+        </view>
+        <view class="tp" bindtap="pickTheme" data-t="dark">
+          <view class="pv dk"><view class="a"></view><view class="b"></view></view>
+          <view class="cap {{dark ? 'on' : ''}}">深色</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="st">
+      <image class="ic" src="/images/ic/fire-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      <view class="t">减弱动效</view>
+      <view class="sw {{reduce ? 'on' : ''}}" bindtap="toggleReduce"><view class="knob"></view></view>
+    </view>
+
+    <view class="st">
+      <image class="ic" src="/images/ic/voice-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      <view class="t">操作音效</view>
+      <view class="sw {{sound ? 'on' : ''}}" bindtap="toggleSound"><view class="knob"></view></view>
+    </view>
+    <view class="st sub">
+      <view class="t2">跳转、收藏、筛选各有提示音；静音时自动关闭</view>
+    </view>
+
+    <!-- 数据真实性：任何环境都不放开展示虚构数字；只有后台接入真实统计后才显示（V3.0 §4） -->
+    <view class="st sub split">
+      <view class="t2">数据说明：{{statNote}}</view>
+    </view>
+  </view>
+
+  <!-- 行为日志：只存本机、不上报、不含手机号（V3.1 §6.1 G-11） -->
+  <view class="grp-card">
+    <view class="st">
+      <image class="ic" src="/images/ic/clock-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      <view class="t">行为日志</view>
+      <view class="v">{{logCount}} 条</view>
+    </view>
+    <view class="st sub" wx:if="{{!logCount}}">
+      <view class="t2">还没有记录。用一次测试或点开一条内容就会开始记，只存在这台手机上。</view>
+    </view>
+    <block wx:else>
+      <view class="st sub">
+        <view class="t2">
+          <text wx:for="{{logSummary}}" wx:key="e">{{item.d}} {{item.n}}<text wx:if="{{index < logSummary.length - 1}}"> · </text></text>
+        </view>
+      </view>
+      <view class="st sub lg" wx:for="{{logRecent}}" wx:key="index">
+        <view class="t2">{{item.time}}　{{item.d}}</view>
+      </view>
+      <view class="st" bindtap="onClearLog">
+        <image class="ic" src="/images/ic/trash-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+        <view class="t">清空日志</view>
+        <image class="go" src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      </view>
+    </block>
+  </view>
+
+  <!-- 支持 -->
+  <view class="grp-card">
+    <view class="st" bindtap="onFeedback">
+      <image class="ic" src="/images/ic/edit-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      <view class="t">意见反馈</view>
+      <image class="go" src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="st" bindtap="onHelp">
+      <image class="ic" src="/images/ic/help-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      <view class="t">帮助中心</view>
+      <image class="go" src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="st" bindtap="onAbout">
+      <image class="ic" src="/images/ic/info-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      <view class="t">关于第二文化</view>
+      <view class="v">{{version}} 版</view>
+      <image class="go" src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="st" bindtap="onLegal" data-t="privacy">
+      <image class="ic" src="/images/ic/shield-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      <view class="t">隐私政策</view>
+      <image class="go" src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="st" bindtap="onLegal" data-t="terms">
+      <image class="ic" src="/images/ic/info-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      <view class="t">用户协议</view>
+      <image class="go" src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="st" bindtap="onLegal" data-t="minor">
+      <image class="ic" src="/images/ic/help-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      <view class="t">未成年人保护</view>
+      <image class="go" src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+  </view>
+
+  <!-- 其他 -->
+  <view class="grp-card">
+    <view class="st" bindtap="onClearCache">
+      <image class="ic" src="/images/ic/trash-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      <view class="t">清除缓存</view>
+      <view class="v">{{cacheSize}}</view>
+    </view>
+    <view wx:if="{{user}}" class="st" bindtap="onLogout">
+      <image class="ic" src="/images/ic/logout-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      <view class="t">移除档案</view>
+      <image class="go" src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+  </view>
+
+  <view class="safe-pad"></view>
+</view>
+<view class="fade-bottom {{dark ? 'dk' : ''}}"></view>

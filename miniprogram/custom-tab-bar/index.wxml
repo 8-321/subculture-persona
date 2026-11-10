@@ -1,0 +1,14 @@
+<view class="tabbar {{dark ? 'dk' : ''}}">
+  <view
+    wx:for="{{list}}"
+    wx:key="key"
+    class="tb {{selected === index ? 'on' : ''}}"
+    bindtap="onTap"
+    data-index="{{index}}"
+    hover-class="press"
+    hover-stay-time="80"
+  >
+    <image class="ic" src="{{selected === index ? item.iconActive : item.icon}}" mode="aspectFit" />
+    <text class="lb">{{item.text}}</text>
+  </view>
+</view>

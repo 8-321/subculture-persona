@@ -1,0 +1,82 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar capr" style="padding-right:{{capR}}px">
+    <view class="navbtn" bindtap="onBack" hover-class="press"><image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" /></view>
+    <view class="ttl">合作</view>
+    <view class="ph"></view>
+  </view>
+
+  <view class="hero">
+    <view class="kick">品牌 · 场地 · 独立商家</view>
+    <view class="big">
+    <view>把品牌放进</view>
+    <view>一个真实的文化语境</view>
+  </view>
+    <view class="sub">不是投一次广告，是进入一个已经存在的文化现场。</view>
+  </view>
+
+  <view class="offers">
+    <view class="of" wx:for="{{offers}}" wx:key="no">
+      <view class="of-top"><text class="of-no">{{item.no}}</text><text class="of-t">{{item.t}}</text></view>
+      <view class="of-d">{{item.d}}</view>
+      <view class="of-li" wx:for="{{item.items}}" wx:for-item="x" wx:key="*this">
+        <view class="dot"></view><text>{{x}}</text>
+      </view>
+      <view class="of-meta"><text>{{item.quote}}</text><text class="of-time">{{item.time}}</text></view>
+    </view>
+    <view class="price-note">以上为参考价，最终按范围、周期与交付物正式报价。</view>
+  </view>
+
+  <view class="sect">
+    <view class="sect-t">怎么合作</view>
+    <view class="step" wx:for="{{steps}}" wx:key="n">
+      <view class="step-n">{{item.n}}</view>
+      <view class="step-x">
+        <view class="step-t">{{item.t}}</view>
+        <view class="step-d">{{item.d}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="sect">
+    <view class="sect-t">为什么是我们</view>
+    <view class="why">
+      <view class="w">
+        <view class="w-n">14 型</view>
+        <view class="w-t">不是临时编的标签，是一套经过 4 万次随机作答校准的人格库。</view>
+      </view>
+      <view class="w">
+        <view class="w-n">可核对</view>
+        <view class="w-t">每条文化起源都带出处，品牌不用为「编出来的亚文化」背书。</view>
+      </view>
+      <view class="w">
+        <view class="w-n">黑白</view>
+        <view class="w-t">统一的纪实视觉，不做彩色贴纸式联名，品牌不会被页面吃掉。</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="sect">
+    <view class="sect-t">我们不做什么</view>
+    <view class="no">
+      <view class="no-li">不刷量、不买粉、不承诺销量。</view>
+      <view class="no-li">不接违法违规、医疗功效、金融放贷与博彩类合作。</view>
+      <view class="no-li">不做交易担保；商品与售后由商家负责。</view>
+    </view>
+  </view>
+
+  <view class="contact">
+    <view class="c-k">开始聊</view>
+    <view class="c-t">先把品牌、场地或店铺的情况整理成一段话，再决定用哪种方式发给我们。</view>
+    <view wx:if="{{hasMail}}" class="c-mail" bindtap="onCopyMail">{{mail}}</view>
+    <view wx:else class="c-mail off">联系邮箱上线前公布</view>
+    <view class="c-ops">
+      <view class="c-btn" bindtap="onCopyKit" hover-class="press">复制咨询模板</view>
+      <button class="c-btn ghost" open-type="contact" hover-class="press">打开客服会话</button>
+    </view>
+    <view class="c-fine">客服会话需要在小程序后台配置后生效；邮箱也会在上线前补上。</view>
+  </view>
+
+  <view class="safe-pad"></view>
+</view>

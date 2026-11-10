@@ -1,0 +1,83 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="topbar capr" style="padding-right:{{capR}}px">
+    <view class="hl">
+      <image class="logo" src="{{dark ? '/images/ic/logo-white.png' : '/images/ic/logo-ink.png'}}" mode="aspectFit" />
+      <view class="bt">
+        <view class="brand">第二文化</view>
+        <view class="pagename">社区</view>
+      </view>
+    </view>
+    <view wx:if="{{canPublish}}" class="pub" bindtap="onPublish" hover-class="press">
+      <image class="pub-ic" src="{{dark ? '/images/ic/plus-white.png' : '/images/ic/plus-ink.png'}}" mode="aspectFit" />
+      投稿
+    </view>
+  </view>
+
+  <view class="search" bindtap="onSearch">
+    <image class="s-ic" src="{{dark ? '/images/ic/search-white.png' : '/images/ic/search-ink.png'}}" mode="aspectFit" />
+    <text class="ph">搜索帖子 · 店铺 · 商品</text>
+  </view>
+
+  <view class="demo-note" wx:if="{{hasDemo}}">
+    <view>示例内容：店铺与互动数据为演示数据。</view>
+    <view>正式版替换为真实发布。</view>
+  </view>
+
+  <scroll-view class="cats" scroll-x show-scrollbar="{{false}}">
+    <view class="cat {{cur === item ? 'on' : ''}}" wx:for="{{cats}}" wx:key="*this" bindtap="onCat" data-cat="{{item}}">{{item}}</view>
+  </scroll-view>
+
+  <view class="feed {{swapCls}}">
+    <view class="fcol">
+      <view class="pc m-rv {{item._rv ? 'm-rise' : ''}}" style="animation-delay:{{item._d}}ms" data-idx="{{index}}" wx:for="{{colA}}" wx:key="id" bindtap="onPost" data-id="{{item.id}}" hover-class="press">
+        <view class="ph">
+          <image src="{{item.cover}}" mode="aspectFill" style="height:{{item.h}}rpx" />
+          <view wx:if="{{item.demo}}" class="sample-tag">示例</view>
+          <view wx:if="{{item.goods}}" class="lk2">
+            <image class="lk2-ic" src="/images/ic/bag-white.png" mode="aspectFit" />
+            <text class="lk2-t">同款好物</text>
+          </view>
+        </view>
+        <view class="bd2">
+          <view class="tt2">{{item.title}}</view>
+          <view class="ft2">
+            <image class="av" src="{{item.shopImg}}" mode="aspectFill" />
+            <text class="nm2">{{item.shop}}</text>
+            <text class="mb">商家</text>
+            <text wx:if="{{item.likesText}}" class="lk3">{{item.likesText}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="fcol">
+      <view class="pc m-rv {{item._rv ? 'm-rise' : ''}}" style="animation-delay:{{item._d}}ms" data-idx="{{index}}" wx:for="{{colB}}" wx:key="id" bindtap="onPost" data-id="{{item.id}}" hover-class="press">
+        <view class="ph">
+          <image src="{{item.cover}}" mode="aspectFill" style="height:{{item.h}}rpx" />
+          <view wx:if="{{item.demo}}" class="sample-tag">示例</view>
+          <view wx:if="{{item.goods}}" class="lk2">
+            <image class="lk2-ic" src="/images/ic/bag-white.png" mode="aspectFit" />同款好物
+          </view>
+        </view>
+        <view class="bd2">
+          <view class="tt2">{{item.title}}</view>
+          <view class="ft2">
+            <image class="av" src="{{item.shopImg}}" mode="aspectFill" />
+            <text class="nm2">{{item.shop}}</text>
+            <text class="mb">商家</text>
+            <text wx:if="{{item.likesText}}" class="lk3">{{item.likesText}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{colA.length === 0 && colB.length === 0}}" class="empty">
+    <view class="e">这个分类还没有内容</view>
+    <view class="s">换一个标签看看，或者去商城逛逛</view>
+  </view>
+
+  <view class="safe-pad"></view>
+</view>
+<view class="fade-bottom {{dark ? 'dk' : ''}}"></view>

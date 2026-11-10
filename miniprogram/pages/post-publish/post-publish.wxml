@@ -1,0 +1,64 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar capr" style="padding-right:{{capR}}px">
+    <view class="navbtn" bindtap="onBack" hover-class="press">
+      <image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="ttl">写一篇投稿</view>
+    <view class="pubbtn {{canPub ? '' : 'off'}}" bindtap="onPublish">存草稿</view>
+  </view>
+
+  <view class="shead">
+    <view class="st">图片</view>
+    <view class="cnt">{{pics.length}} / 9</view>
+  </view>
+  <view class="pics">
+    <view class="tile" wx:for="{{pics}}" wx:key="*this">
+      <image src="{{item}}" mode="aspectFill" />
+      <view wx:if="{{index === 0}}" class="fc">封面</view>
+      <view class="del" bindtap="onDel" data-i="{{index}}">
+        <image src="/images/ic/close-white.png" mode="aspectFit" />
+      </view>
+    </view>
+    <view wx:if="{{pics.length < 9}}" class="tile add" bindtap="onAdd">
+      <image src="/images/ic/plus-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+  </view>
+
+  <view class="f1">
+    <input class="ti" placeholder="写个标题，让人想点进来" placeholder-class="phc" value="{{title}}" bindinput="onTitle" maxlength="30" />
+    <view class="c">{{title.length}}/30</view>
+  </view>
+
+  <view class="farea">
+    <textarea class="ta" placeholder="说点什么，比如这件衣服怎么来的、怎么搭" placeholder-class="phc"
+      value="{{body}}" bindinput="onBody" maxlength="1000" auto-height />
+    <view class="c">{{body.length}}/1000</view>
+  </view>
+
+  <view class="topic">
+    <view class="tp" wx:for="{{topics}}" wx:key="*this"># {{item}}</view>
+    <view class="tp add" bindtap="onAddTopic">＋ 添加话题</view>
+  </view>
+
+  <view class="phead">
+    <view class="st">关联商品</view>
+    <view class="lnk" bindtap="onPickGoods">从店铺选择
+      <image src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+  </view>
+  <view wx:if="{{goods}}" class="pcard">
+    <image class="pim" src="{{goods.img}}" mode="aspectFill" />
+    <view class="ptx">
+      <view class="pt">{{goods.name}}</view>
+      <view class="ps">{{goods.brand}} · 价格以商家为准</view>
+    </view>
+    <view class="chg" bindtap="onPickGoods">更换
+      <image src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+  </view>
+
+  <view class="note">当前版本只存本地草稿，不会自动上传，也没有在线审核后台。</view>
+  <view class="safe-pad"></view>
+</view>

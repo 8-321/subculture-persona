@@ -1,0 +1,96 @@
+.status-space { width: 100%; }
+.navbar { display: flex; align-items: center; gap: 18rpx; padding: 0 40rpx; margin-top: 8rpx; }
+.navbtn { width: 72rpx; height: 72rpx; border-radius: 50%; background: var(--card);
+  border: 1rpx solid var(--line-2); display: flex; align-items: center; justify-content: center; flex: 0 0 72rpx; }
+.navbtn image { width: 32rpx; height: 32rpx; }
+.navmid { flex: 1; display: flex; align-items: center; gap: 12rpx; min-width: 0; }
+.navmid .av { width: 52rpx; height: 52rpx; border-radius: 50%; flex: 0 0 52rpx; }
+.navmid .nm { font-size: 25rpx; font-weight: 700; color: var(--text);
+  min-width: 0; max-width: 240rpx; white-space: nowrap; overflow: hidden;
+  text-overflow: ellipsis; flex: 0 1 auto; }
+.navmid .mb { font-size: 17rpx; font-weight: 700; color: var(--on-ink); background: var(--ink);
+  padding: 3rpx 10rpx; border-radius: 8rpx; }
+.follow { height: 56rpx; padding: 0 22rpx; border-radius: 999rpx; background: var(--ink); color: var(--on-ink);
+  font-size: 23rpx; font-weight: 800; display: flex; align-items: center; flex: 0 0 auto;
+  white-space: nowrap; line-height: 1; }
+.follow.on { background: var(--card-2); color: var(--text-3); }
+.press { opacity: .82; }
+
+.hero { height: 620rpx; margin-top: 20rpx; }
+.hero image { width: 100%; height: 100%; }
+.pg-no { position: absolute; right: 56rpx; margin-top: -70rpx; height: 44rpx; padding: 0 18rpx;
+  border-radius: 22rpx; background: rgba(17,17,20,.62); color: #FFFFFF; font-size: 20rpx;
+  display: flex; align-items: center; }
+
+.t3 { padding: 0 40rpx; margin-top: 28rpx; font-size: 34rpx; font-weight: 800; line-height: 1.4; color: var(--text); }
+.tmeta { display: flex; align-items: center; flex-wrap: wrap; gap: 12rpx; padding: 0 40rpx; margin-top: 16rpx; }
+.tmeta .mb { font-size: 19rpx; font-weight: 700; color: var(--on-ink); background: var(--ink);
+  padding: 4rpx 12rpx; border-radius: 8rpx; line-height: 1.2; }
+.tmeta .sample-inline { background: var(--line-2); color: var(--text-2); }
+.tmeta-n { font-size: 19rpx; color: var(--text-3); }
+.body3 { padding: 0 40rpx; margin-top: 20rpx; font-size: 26rpx; line-height: 1.72; color: var(--text-2); }
+.tgs { display: flex; flex-wrap: wrap; gap: 14rpx; padding: 0 40rpx; margin-top: 24rpx; }
+.tg { height: 52rpx; padding: 0 22rpx; border-radius: 999rpx; background: var(--card-2);
+  font-size: 22rpx; font-weight: 700; color: var(--text-2); display: flex; align-items: center; }
+
+.bar { display: flex; align-items: center; gap: 20rpx; margin: 24rpx 40rpx 0; padding: 22rpx 24rpx;
+  background: var(--card); border-radius: 32rpx; box-shadow: var(--shadow-card); }
+.bic { width: 56rpx; height: 56rpx; border-radius: 50%; background: var(--card-2); flex: 0 0 56rpx; padding: 12rpx; box-sizing: border-box; }
+.btx { flex: 1; min-width: 0; }
+.bt { font-size: 25rpx; font-weight: 700; color: var(--text); }
+.bs { font-size: 20rpx; color: var(--text-3); margin-top: 6rpx; }
+.bpl { width: 32rpx; height: 32rpx; flex: 0 0 32rpx; }
+.bdemo { flex: 0 0 auto; padding: 6rpx 16rpx; border-radius: 999rpx; background: var(--line); color: var(--text-3);
+  font-size: 18rpx; font-weight: 700; white-space: nowrap; }
+
+.pdc { display: flex; align-items: center; gap: 20rpx; margin: 24rpx 40rpx 0; padding: 20rpx 24rpx;
+  background: var(--card); border-radius: 32rpx; box-shadow: var(--shadow-card); }
+.pim { width: 128rpx; height: 128rpx; border-radius: 24rpx; flex: 0 0 128rpx; }
+.ptx { flex: 1; min-width: 0; }
+.pt { font-size: 25rpx; font-weight: 700; color: var(--text); }
+.ps { font-size: 20rpx; color: var(--text-3); margin-top: 8rpx; }
+.pp { font-size: 28rpx; font-weight: 800; margin-top: 8rpx; }
+.pdc .go { display: flex; align-items: center; gap: 6rpx; font-size: 22rpx; font-weight: 700; color: var(--text-2); }
+.pdc .go image { width: 22rpx; height: 22rpx; }
+
+.actbar { position: fixed; left: 0; right: 0; bottom: 0; display: flex; align-items: center;
+  padding: 20rpx 40rpx 48rpx; background: var(--card); box-shadow: 0 -8rpx 32rpx rgba(17,17,20,.08); }
+.stat { display: flex; align-items: center; gap: 10rpx; font-size: 22rpx; color: var(--text-3); }
+.stat image { width: 30rpx; height: 30rpx; }
+.br { margin-left: auto; display: flex; gap: 20rpx; }
+.fav, .lik { display: flex; align-items: center; gap: 10rpx; height: 80rpx; padding: 0 26rpx;
+  border-radius: 999rpx; background: var(--card-2); font-size: 24rpx; font-weight: 700; color: var(--text-2); }
+.fav.on, .lik.on { background: var(--ink); color: var(--on-ink); }
+.fav image, .lik image { width: 30rpx; height: 30rpx; }
+
+/* ---------------- 举报（P0 合规） ---------------- */
+.navbtn.more { flex: 0 0 72rpx; }
+.np { font-size: 24rpx; font-weight: 600; color: var(--text-3); }
+
+.msk { position: fixed; left: 0; right: 0; top: 0; bottom: 0; background: rgba(17,17,20,.42);
+  z-index: 90; animation: mskIn 220ms ease both; }
+@keyframes mskIn { from { opacity: 0; } to { opacity: 1; } }
+
+.sheet { position: fixed; left: 0; right: 0; bottom: 0; z-index: 91;
+  background: var(--card); border-radius: 40rpx 40rpx 0 0; padding: 36rpx 40rpx 56rpx;
+  box-shadow: 0 -12rpx 48rpx rgba(17,17,20,.16);
+  transform: translateY(110%); transition: transform 320ms cubic-bezier(.2,.8,.2,1); }
+.sheet.on { transform: translateY(0); }
+.reduce-motion .sheet { transition: none; }
+
+.sh-t { font-size: 32rpx; font-weight: 800; color: var(--text); }
+.sh-s { margin-top: 12rpx; font-size: 22rpx; line-height: 1.6; color: var(--text-3); }
+.opt { display: flex; align-items: center; justify-content: space-between;
+  height: 96rpx; margin-top: 16rpx; padding: 0 24rpx; border-radius: 24rpx;
+  background: var(--card-2); font-size: 27rpx; font-weight: 700; color: var(--text); }
+.opt image { width: 22rpx; height: 22rpx; opacity: .5; }
+.opt:first-child { margin-top: 28rpx; }
+.sh-c { margin-top: 24rpx; height: 96rpx; border-radius: 24rpx; border: 1rpx solid var(--line-2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 27rpx; font-weight: 700; color: var(--text-2); }
+
+
+.share2 { width: 80rpx; height: 80rpx; flex: 0 0 80rpx; padding: 0; margin: 0; border-radius: 999rpx;
+  background: var(--card-2); display: flex; align-items: center; justify-content: center; line-height: 1; }
+.share2::after { border: none; }
+.share2 image { width: 30rpx; height: 30rpx; }

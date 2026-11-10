@@ -1,0 +1,10 @@
+const fs=require('fs'), path=require('path');
+const p='miniprogram/pages/legal/legal.js';
+let s=fs.readFileSync(p,'utf8');
+const a=s.indexOf('const UPDATED');
+const b=s.indexOf('Page({');
+let block=s.slice(a,b).replace("const CONTACT = Site.mail;\n",'');
+block=block.replace(/\n+$/,'\n');
+block += "\nmodule.exports = { UPDATED: UPDATED, PRIVACY: PRIVACY, TERMS: TERMS, MINOR: MINOR, MAP: MAP, TITLE: TITLE, KICKER: KICKER };\n";
+fs.writeFileSync('miniprogram/data/legal.js', block, 'utf8');
+console.log('wrote data/legal.js', block.length);

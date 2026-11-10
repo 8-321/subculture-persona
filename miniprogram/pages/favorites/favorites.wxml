@@ -1,0 +1,63 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar capr" style="padding-right:{{capR}}px">
+    <view class="navbtn" bindtap="onBack" hover-class="press">
+      <image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="ttl">我的收藏</view>
+    <view class="tx" bindtap="onManage">{{managing ? '完成' : '管理'}}</view>
+  </view>
+
+  <view class="seg">
+    <view class="g {{cur === 0 ? 'on' : ''}}" bindtap="onSeg" data-i="0">帖子收藏</view>
+    <view class="g {{cur === 1 ? 'on' : ''}}" bindtap="onSeg" data-i="1">点赞</view>
+    <view class="g {{cur === 2 ? 'on' : ''}}" bindtap="onSeg" data-i="2">商城收藏</view>
+    <view class="r">共 {{count}} 条</view>
+  </view>
+
+  <!-- 帖子收藏 / 点赞：列表 -->
+  <block wx:if="{{cur === 2}}">
+    <view class="grid">
+      <view class="pd" wx:for="{{list}}" wx:key="id" bindtap="onOpen" data-id="{{item.id}}" data-type="product">
+        <view class="pd-im">
+          <image src="{{item.img}}" mode="aspectFill" />
+          <view wx:if="{{managing}}" class="pd-del" catchtap="onRemove" data-id="{{item.id}}">
+            <image src="/images/ic/close-white.png" mode="aspectFit" />
+          </view>
+        </view>
+        <view class="pd-bd">{{item.desc}}</view>
+        <view class="pd-nm">{{item.title}}</view>
+        <view class="pd-pc">{{item.extra}}</view>
+      </view>
+    </view>
+  </block>
+
+  <block wx:else>
+    <view class="list">
+      <view class="row" wx:for="{{list}}" wx:key="id">
+        <image class="th" src="{{item.img}}" mode="aspectFill" />
+        <view class="tx" bindtap="onOpen" data-id="{{item.id}}" data-type="{{item.type}}">
+          <view class="t">{{item.title}}</view>
+          <view class="d">{{item.desc}}</view>
+        </view>
+        <view class="bm" bindtap="onRemove" data-id="{{item.id}}">
+          <image src="{{managing ? '/images/ic/close-ink.png' : '/images/ic/bookmark-ink.png'}}" mode="aspectFit" />
+        </view>
+      </view>
+    </view>
+  </block>
+
+  <view wx:if="{{list.length === 0}}" class="empty">
+    <view class="e">这里还是空的</view>
+    <view class="s">去社区或商城逛逛，看到喜欢的点一下</view>
+    <view class="acts">
+      <view class="a" bindtap="goCommunity">去社区</view>
+      <view class="a" bindtap="goShop">去商城</view>
+    </view>
+  </view>
+
+  <view class="hint">点右上角「管理」，可逐条取消收藏</view>
+  <view class="safe-pad"></view>
+</view>
+<view class="fade-bottom {{dark ? 'dk' : ''}}"></view>

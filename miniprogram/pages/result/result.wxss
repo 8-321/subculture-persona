@@ -1,0 +1,134 @@
+.status-space { width: 100%; }
+.navbar { display: flex; align-items: center; justify-content: space-between; padding: 0 40rpx; margin-top: 8rpx; }
+.navright { display: flex; align-items: center; gap: 16rpx; }
+.navbtn { width: 76rpx; height: 76rpx; border-radius: 50%; background: var(--card);
+  border: 1rpx solid var(--line-2); display: flex; align-items: center; justify-content: center; flex: 0 0 76rpx; }
+.navbtn image { width: 34rpx; height: 34rpx; }
+.share-btn { padding: 0; margin: 0; line-height: 1; }
+.share-btn::after { border: none; }
+.press { opacity: .82; }
+
+/* ============ 人格档案主图 ============ */
+.hero { position: relative; margin: 20rpx 40rpx 0; height: 690rpx; border-radius: 44rpx; overflow: hidden;
+  background: #111114; }
+.hero image { width: 100%; height: 100%; }
+.hero-sc { position: absolute; left: 0; right: 0; top: 0; bottom: 0;
+  background: linear-gradient(180deg, rgba(10,10,12,.26) 0%, rgba(10,10,12,.10) 34%, rgba(10,10,12,.86) 100%); }
+.arch { position: absolute; left: 36rpx; top: 32rpx; display: flex; align-items: center; gap: 16rpx;
+  color: rgba(255,255,255,.82); }
+.arch-k { font-size: 20rpx; font-weight: 700; letter-spacing: 6rpx; }
+.arch-n { font-size: 20rpx; letter-spacing: 2rpx; color: rgba(255,255,255,.6);
+  border-left: 1rpx solid rgba(255,255,255,.32); padding-left: 16rpx; }
+.match { position: absolute; right: 32rpx; top: 28rpx; width: 128rpx; padding: 16rpx 0 14rpx;
+  text-align: center; border-radius: 28rpx; background: rgba(255,255,255,.12);
+  border: 1rpx solid rgba(255,255,255,.22); backdrop-filter: blur(10px); }
+.match-k { display: block; font-size: 18rpx; color: rgba(255,255,255,.68); letter-spacing: 2rpx; }
+.match-v { display: block; font-size: 30rpx; font-weight: 800; color: #fff; margin-top: 4rpx;
+  font-variant-numeric: tabular-nums; }
+.hero-tx { position: absolute; left: 40rpx; right: 40rpx; bottom: 40rpx; }
+.hero-tx .eb { font-size: 21rpx; color: rgba(255,255,255,.66); letter-spacing: 3rpx; }
+.hero-tx .nm { font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+  font-size: 76rpx; font-weight: 700; color: #fff; margin-top: 16rpx; letter-spacing: 4rpx; line-height: 1.08; }
+.hero-tx .nick { font-size: 25rpx; color: rgba(255,255,255,.88); margin-top: 14rpx; letter-spacing: 1rpx; }
+.hero-tx .tag { font-size: 24rpx; line-height: 1.65; color: rgba(255,255,255,.74); margin-top: 18rpx;
+  max-width: 520rpx; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 14rpx; padding: 0 40rpx; margin-top: 26rpx; }
+.chip { height: 50rpx; padding: 0 22rpx; border-radius: 999rpx; background: transparent;
+  border: 1rpx solid var(--line-2); color: var(--text); font-size: 22rpx; font-weight: 700;
+  display: flex; align-items: center; letter-spacing: 1rpx; }
+
+.quote { padding: 0 64rpx; margin-top: 38rpx; font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+  font-size: 34rpx; font-weight: 600; line-height: 1.75; text-align: center; color: var(--text); }
+.egg { text-align: center; font-size: 22rpx; color: var(--text-3); margin-top: 16rpx; }
+
+/* ============ 档案式卡片：细线、无重阴影 ============ */
+.card { margin: 36rpx 40rpx 0; background: var(--card); border-radius: 32rpx; padding: 30rpx 32rpx;
+  border: 1rpx solid var(--line); box-shadow: none; }
+.card .hd { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 18rpx; }
+.card .hd .t { font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+  font-size: 30rpx; font-weight: 700; letter-spacing: 1rpx; }
+.card .hd .m { font-size: 20rpx; color: var(--text-3); }
+
+.dim { padding: 20rpx 0 18rpx; border-bottom: 1rpx solid var(--line); }
+.dim:last-child { border-bottom: none; padding-bottom: 4rpx; }
+.dim-top { display: flex; align-items: baseline; }
+.dim-n { font-size: 24rpx; font-weight: 700; color: var(--text); }
+.dim-lv { margin-left: 14rpx; font-size: 19rpx; color: var(--text-3); }
+.dim-v { margin-left: auto; font-size: 26rpx; font-weight: 800; font-variant-numeric: tabular-nums; }
+.dim-bar { height: 6rpx; border-radius: 0; background: var(--line); margin-top: 14rpx; overflow: hidden; }
+.dim-fill { height: 100%; background: var(--ink); transition: width .8s cubic-bezier(.2,.8,.2,1); }
+.dim-open { margin-top: 18rpx; padding: 20rpx 22rpx; background: var(--card-2); border-left: 4rpx solid var(--ink); }
+.dim-c { font-size: 24rpx; line-height: 1.7; color: var(--text); font-weight: 700; }
+.dim-x { font-size: 23rpx; line-height: 1.7; color: var(--text-2); margin-top: 8rpx; }
+
+.why .li { display: flex; align-items: flex-start; gap: 16rpx; margin-bottom: 16rpx; }
+.why .li .dt { width: 10rpx; height: 10rpx; background: var(--ink); margin-top: 14rpx; flex: 0 0 10rpx; }
+.why .li text { font-size: 25rpx; line-height: 1.62; color: var(--text-2); flex: 1; }
+.ft { display: flex; align-items: center; gap: 12rpx; margin-top: 20rpx; padding-top: 18rpx;
+  border-top: 1rpx solid var(--line); font-size: 20rpx; color: var(--text-3); }
+.ft-ic { width: 24rpx; height: 24rpx; }
+
+/* ============ 文化溯源 ============ */
+.origin { background: var(--card-2); }
+.org-line { font-size: 22rpx; color: var(--text-3); letter-spacing: 2rpx; }
+.org-ev { font-size: 25rpx; line-height: 1.78; color: var(--text); margin-top: 12rpx; }
+.org-k { font-size: 19rpx; color: var(--text-3); letter-spacing: 4rpx; margin-top: 24rpx; }
+.org-m { font-size: 24rpx; line-height: 1.7; color: var(--text-2); margin-top: 8rpx; }
+
+/* ============ 同类 / 反面 ============ */
+.kin { display: flex; gap: 20rpx; padding: 0 40rpx; margin-top: 20rpx; }
+.kin-card { position: relative; flex: 1; height: 300rpx; border-radius: 28rpx; overflow: hidden; background: #111114; }
+.kin-card image { width: 100%; height: 100%; }
+.kin-sc { position: absolute; left: 0; right: 0; top: 0; bottom: 0;
+  background: linear-gradient(180deg, rgba(10,10,12,.05) 30%, rgba(10,10,12,.88) 100%); }
+.kin-tx { position: absolute; left: 22rpx; right: 18rpx; bottom: 20rpx; }
+.kin-k { font-size: 19rpx; color: rgba(255,255,255,.62); letter-spacing: 3rpx; }
+.kin-n { font-size: 26rpx; font-weight: 700; color: #fff; margin-top: 8rpx; }
+
+/* ============ 推荐 ============ */
+.h2 { padding: 0 40rpx; margin-top: 44rpx; font-family: "Songti SC", "STSong", "Noto Serif SC", serif;
+  font-size: 31rpx; font-weight: 700; letter-spacing: 1rpx; }
+.mini { display: flex; gap: 24rpx; padding: 0 40rpx; margin-top: 22rpx; }
+.mi { flex: 1; min-width: 0; }
+.mi-im { position: relative; width: 100%; height: 314rpx; border-radius: 24rpx; overflow: hidden;
+  background: var(--card-2); }
+.mi-im image { width: 100%; height: 100%; }
+.mi-bd { font-size: 20rpx; color: var(--text-3); margin-top: 14rpx; letter-spacing: 1rpx; }
+.mi-nm { font-size: 24rpx; font-weight: 700; margin-top: 6rpx; }
+.mi-pc { font-size: 27rpx; font-weight: 800; margin-top: 8rpx; font-variant-numeric: tabular-nums; }
+.np { font-size: 20rpx; font-weight: 600; color: var(--text-3); }
+
+.tips { padding: 0 40rpx; margin-top: 20rpx; }
+.tips .li { display: flex; align-items: flex-start; gap: 16rpx; margin-bottom: 14rpx; }
+.tips .li .dt { width: 10rpx; height: 10rpx; background: var(--ink); margin-top: 14rpx; flex: 0 0 10rpx; }
+.tips .li text { font-size: 25rpx; line-height: 1.62; color: var(--text-2); flex: 1; }
+
+.xlist { padding: 0 40rpx; margin-top: 18rpx; }
+.xr { display: flex; align-items: center; gap: 22rpx; background: transparent; border-radius: 0;
+  padding: 20rpx 0; border-bottom: 1rpx solid var(--line); }
+.xr .th { width: 108rpx; height: 108rpx; border-radius: 16rpx; flex: 0 0 108rpx; background: var(--card-2); }
+.xr .xt { flex: 1; min-width: 0; }
+.xr .xt .t { font-size: 25rpx; font-weight: 700; color: var(--text); }
+.xr .xt .d { font-size: 20rpx; color: var(--text-3); margin-top: 8rpx; }
+.xr .go { width: 24rpx; height: 24rpx; flex: 0 0 24rpx; }
+
+.endnote { padding: 34rpx 40rpx 0; text-align: center; font-size: 20rpx; color: var(--text-3); }
+.safe-pad { height: 240rpx; }
+
+/* ============ 底栏 ============ */
+.bar { position: fixed; left: 0; right: 0; bottom: 0; display: flex; align-items: center; gap: 18rpx;
+  padding: 20rpx 32rpx calc(20rpx + env(safe-area-inset-bottom));
+  background: var(--card); border-top: 1rpx solid var(--line); z-index: 20; }
+.cbtn { width: 100rpx; height: 100rpx; border-radius: 50%; background: var(--card-2);
+  border: 1rpx solid var(--line); display: flex; align-items: center; justify-content: center; flex: 0 0 100rpx; }
+.cbtn.on { border-color: var(--ink); }
+.cbtn image { width: 38rpx; height: 38rpx; }
+.btn-card { flex: 1; height: 100rpx; border-radius: 999rpx; background: var(--ink); color: var(--on-ink);
+  font-size: 29rpx; font-weight: 800; letter-spacing: 1rpx;
+  display: flex; align-items: center; justify-content: center; gap: 10rpx; }
+.btn-card image { width: 28rpx; height: 28rpx; }
+.btn-share { width: 100rpx; height: 100rpx; border-radius: 999rpx; background: transparent;
+  border: 1rpx solid var(--line-2); display: flex; align-items: center; justify-content: center; padding: 0; margin: 0; flex: 0 0 100rpx; }
+.btn-share::after { border: none; }
+.btn-share image { width: 34rpx; height: 34rpx; }

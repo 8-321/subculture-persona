@@ -1,0 +1,149 @@
+<view class="pg fl-page {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}}">
+  <view
+    class="fl-root {{tr}} {{closing ? 't3-down' : ''}}"
+    style="transform:translateY({{dragY}}px)"
+  >
+    <!-- ===== 顶部：拖拽把手 + 标题 ===== -->
+    <view
+      class="fl-hd"
+      style="padding-top:{{sbh}}px"
+      bindtouchstart="onDragStart"
+      bindtouchmove="onDragMove"
+      bindtouchend="onDragEnd"
+    >
+      <view class="grab"></view>
+      <view class="fl-bar">
+        <view class="fl-l">
+          <view class="fl-t">筛选</view>
+          <view class="fl-s">下拉可关闭 · 条件即时生效</view>
+        </view>
+        <view class="fl-x" bindtap="onClose" hover-class="press">
+          <image src="/images/ic/close-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+        </view>
+      </view>
+    </view>
+
+    <!-- ===== 已选条件条：可单独删除 ===== -->
+    <view wx:if="{{chosen.length > 0}}" class="chosen">
+      <view
+        class="ci m-pop-lg"
+        wx:for="{{chosen}}"
+        wx:key="id"
+        bindtap="removeOne"
+        data-k="{{item.k}}"
+        data-v="{{item.v}}"
+      >
+        <text class="ci-g">{{item.g}}</text>
+        <text class="ci-v">{{item.v}}</text>
+        <image class="ci-x" src="/images/ic/close-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      </view>
+    </view>
+
+    <!-- ===== 主体：左侧分组 + 右侧选项 ===== -->
+    <view class="fl-body">
+      <scroll-view class="fl-nav" scroll-y show-scrollbar="{{false}}">
+        <view
+          class="nv {{curGroup === item.key ? 'on' : ''}}"
+          wx:for="{{tabs}}"
+          wx:key="key"
+          bindtap="onGroup"
+          data-k="{{item.key}}"
+        >
+          <text class="nv-t">{{item.name}}</text>
+          <view wx:if="{{item.count > 0}}" class="nv-n">{{item.count}}</view>
+        </view>
+      </scroll-view>
+
+      <scroll-view class="fl-main" scroll-y show-scrollbar="{{false}}">
+        <!-- 排序 -->
+        <block wx:if="{{curGroup === 'sort'}}">
+          <view class="gt">排序方式</view>
+          <view
+            class="op m-pop m-st {{cond.sort === item.k ? 'on' : ''}}"
+            style="animation-delay:{{item._d}}ms"
+            wx:for="{{sortOptionsView}}"
+            wx:key="k"
+            bindtap="onSort"
+            data-k="{{item.k}}"
+          >
+            <view class="op-l">
+              <text class="op-n">{{item.n}}</text>
+              <text class="op-d">{{item.d}}</text>
+            </view>
+            <view class="op-k"></view>
+          </view>
+        </block>
+
+        <!-- 价格 -->
+        <block wx:elif="{{curGroup === 'price'}}">
+          <view class="gt">自定义区间</view>
+          <view class="pr">
+            <input
+              class="in" type="digit" placeholder="最低价" placeholder-class="phc"
+              value="{{min}}" bindinput="onMin"
+            />
+            <view class="dash"></view>
+            <input
+              class="in" type="digit" placeholder="最高价" placeholder-class="phc"
+              value="{{max}}" bindinput="onMax"
+            />
+          </view>
+          <view class="gt mt">快捷区间</view>
+          <view class="chips">
+            <view
+              class="ch m-pop m-st {{rangeOn === item.v ? 'on' : ''}}"
+              style="animation-delay:{{item._d}}ms"
+              wx:for="{{rangesView}}"
+              wx:key="v"
+              bindtap="onRange"
+              data-r="{{item.v}}"
+            >{{item.v}}</view>
+          </view>
+        </block>
+
+        <!-- 风格 / 品牌 / 尺码 / 服务 -->
+        <block wx:else>
+          <view class="gt">{{curName}} · 可多选</view>
+          <view class="chips">
+            <view
+              class="ch m-pop m-st {{it.on ? 'on' : ''}}"
+              style="animation-delay:{{it._d}}ms"
+              wx:for="{{curItems}}"
+              wx:for-item="it"
+              wx:key="v"
+              bindtap="onChip"
+              data-v="{{it.v}}"
+            >{{it.v}}</view>
+          </view>
+          <view class="hint">已选 {{selCount}} 个条件 · 当前筛出 {{hitCount}} 件</view>
+        </block>
+
+        <view class="ph"></view>
+      </scroll-view>
+    </view>
+
+    <!-- ===== 底部操作条 ===== -->
+    <view class="fl-ft">
+      <view class="ft-l">
+        <text class="ft-n">{{hitAnim}}</text>
+        <text class="ft-u">件结果</text>
+      </view>
+      <view class="ft-r">
+        <view class="b-reset" bindtap="onReset" hover-class="press">重置</view>
+        <view class="b-ok m-glare" bindtouchstart="onSpark" bindtap="onConfirm" hover-class="press">
+          查看结果
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 点击火花层 -->
+  <view class="spark-layer">
+    <view
+      class="spark"
+      wx:for="{{sparks}}"
+      wx:key="id"
+      style="left:{{item.x}}px;top:{{item.y}}px;--sx:{{item.sx}}px;--sy:{{item.sy}}px;transform:scale({{item.s}})"
+    ></view>
+  </view>
+</view>

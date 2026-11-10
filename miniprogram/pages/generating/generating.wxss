@@ -1,0 +1,28 @@
+.wrap-c { min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+  justify-content: center; padding: 0 60rpx; box-sizing: border-box; }
+
+/* 光晕：只用灰白，不引入彩色（硬规则） */
+.halo { position: relative; width: 360rpx; height: 360rpx; display: flex; align-items: center; justify-content: center; }
+.halo .h1 { position: absolute; width: 360rpx; height: 360rpx; border-radius: 50%;
+  background: radial-gradient(circle, rgba(150,150,158,.30) 0%, rgba(150,150,158,0) 68%);
+  animation: breathe 2.4s ease-in-out infinite; }
+.halo .h2 { position: absolute; width: 260rpx; height: 260rpx; border-radius: 50%;
+  background: radial-gradient(circle, rgba(150,150,158,.42) 0%, rgba(150,150,158,0) 70%);
+  animation: breathe 2.4s ease-in-out .4s infinite; }
+.halo.still .h1, .halo.still .h2 { animation: none; }
+.halo .core { position: relative; width: 140rpx; height: 140rpx; border-radius: 50%;
+  background: var(--card); box-shadow: var(--shadow-card);
+  display: flex; align-items: center; justify-content: center; }
+.halo .core image { width: 64rpx; height: 64rpx; }
+@keyframes breathe { 0% { transform: scale(.86); opacity: .5; } 50% { transform: scale(1.04); opacity: 1; } 100% { transform: scale(.86); opacity: .5; } }
+
+.tip { margin-top: 60rpx; font-size: 31rpx; font-weight: 800; letter-spacing: .6rpx; color: var(--text);
+  text-align: center; min-height: 44rpx; }
+.sub { margin-top: 16rpx; font-size: 22rpx; color: var(--text-3); text-align: center; }
+
+.bar { margin-top: 48rpx; width: 440rpx; height: 10rpx; border-radius: 999rpx; background: var(--line); overflow: hidden; }
+.bar .fill { height: 100%; background: var(--ink); border-radius: 999rpx; transition: width .4s linear; }
+
+.retry { margin-top: 48rpx; height: 88rpx; padding: 0 44rpx; border-radius: 999rpx;
+  border: 2rpx solid var(--line-2); color: var(--text-2); font-size: 28rpx; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; }

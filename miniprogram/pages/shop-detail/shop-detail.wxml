@@ -1,0 +1,87 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar capr" style="padding-right:{{capR}}px">
+    <view class="navbtn" bindtap="onBack" hover-class="press">
+      <image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="ttl"></view>
+    <button class="navbtn share-btn" open-type="share" hover-class="press">
+      <image src="/images/ic/share-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </button>
+  </view>
+
+  <!-- 主图（T2 共享元素：图片原地放大成头图） -->
+  <swiper class="shot t2-hero" bindchange="onShot">
+    <swiper-item wx:for="{{shots}}" wx:key="*this">
+      <image src="{{item}}" mode="aspectFill" />
+    </swiper-item>
+  </swiper>
+  <view class="shot-meta">
+    <view wx:if="{{p.tag}}" class="tg">{{p.tag}}</view>
+    <view wx:if="{{shots.length > 1}}" class="pg-no">{{cur + 1}} / {{shots.length}}</view>
+  </view>
+
+  <!-- 价格卡（文字延迟 80ms 淡入） -->
+  <view class="card pinfo t2-text">
+    <view class="pr">
+      <text class="pc" wx:if="{{priceText}}">{{priceText}}</text>
+      <text class="pc np" wx:else>价格以商家为准</text>
+      <text wx:if="{{soldText}}" class="sold">{{soldText}}</text>
+    </view>
+    <view class="nm">{{p.name}}</view>
+    <view class="chips">
+      <view class="ch">仅展示</view>
+      <view class="ch">不收款</view>
+      <view class="ch">以商家信息为准</view>
+    </view>
+  </view>
+
+  <!-- 店铺名片 -->
+  <view class="card shopcard">
+    <view class="av">{{shopFirst}}</view>
+    <view class="tx">
+      <view class="nrow">
+        <text class="t">{{p.brand}}</text>
+        <text wx:if="{{p.demo}}" class="sample-tag static">示例店铺</text>
+      </view>
+      <view class="d">{{shopDesc}}</view>
+    </view>
+    <view class="go" bindtap="onShop">进店
+      <image src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+  </view>
+
+  <!-- 信息卡 -->
+  <view class="card svc">
+    <view class="st">
+      <view class="t">尺码与库存</view>
+      <view class="v">以商家为准</view>
+    </view>
+    <view class="st">
+      <image class="ic" src="/images/ic/shield-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      <view class="t">物流与退换以商家后台为准</view>
+    </view>
+    <view class="st">
+      <view class="t">评价</view>
+      <view class="v">{{rateText}}</view>
+      <image class="go-ic" src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+  </view>
+
+  <view class="tip-line">本页只做推荐展示，不提供下单与支付</view>
+
+  <view class="safe-pad"></view>
+
+  <!-- 底栏：收藏 + 立即跳转（不得出现购买 / 加购） -->
+  <view class="bar">
+    <view class="btn-o {{_beat ? 'm-heart' : ''}}" bindtap="onFav" hover-class="press">
+      <image src="{{fav ? '/images/ic/heart-fill-ink.png' : '/images/ic/heart-ink.png'}}" mode="aspectFit" />
+      收藏
+    </view>
+    <view class="btn m-glare" bindtap="onJump" hover-class="press">
+      {{p.link ? '去看看' : '找同款'}}
+      <image src="/images/ic/fwd-white.png" mode="aspectFit" />
+    </view>
+  </view>
+</view>

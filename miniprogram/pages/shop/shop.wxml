@@ -1,0 +1,92 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="topbar capr" style="padding-right:{{capR}}px">
+    <view class="hl">
+      <image class="logo" src="{{dark ? '/images/ic/logo-white.png' : '/images/ic/logo-ink.png'}}" mode="aspectFit" />
+      <view class="bt">
+        <view class="brand">第二文化</view>
+        <view class="pagename">商城</view>
+      </view>
+    </view>
+    <view class="act">
+      <view wx:if="{{!user}}" class="authbtn" bindtap="onAuth" hover-class="press">建立档案</view>
+    </view>
+  </view>
+
+  <!-- 搜索改成整条搜索栏：顶栏右侧只留系统胶囊，避免和「···○」抢位置 -->
+  <view class="sbar" bindtap="onSearch" hover-class="press">
+    <image class="s-ic" src="{{dark ? '/images/ic/search-white.png' : '/images/ic/search-ink.png'}}" mode="aspectFit" />
+    <text class="ph">搜索商品 · 店铺 · 风格</text>
+  </view>
+
+  <scroll-view class="cats" scroll-x show-scrollbar="{{false}}">
+    <view class="cat {{curCat === item ? 'on' : ''}}" wx:for="{{cats}}" wx:key="*this" bindtap="onCat" data-cat="{{item}}">{{item}}</view>
+  </scroll-view>
+
+  <!-- 排序条：筛选是跳转入口，右上角带已选数量 -->
+  <view class="sort">
+    <view class="s {{sort === 'default' ? 'on' : ''}}" bindtap="onSort" data-sort="default">默认</view>
+    <view class="s {{sort === 'priceAsc' || sort === 'priceDesc' ? 'on' : ''}}" bindtap="onSort" data-sort="price">
+      价格
+      <image class="s-ic" src="{{dark ? '/images/ic/updown-white.png' : '/images/ic/updown-ink.png'}}" mode="aspectFit" />
+    </view>
+    <view class="s fl {{selCount > 0 ? 'has' : ''}}" bindtap="onFilter" hover-class="press">
+      筛选
+      <view wx:if="{{selCount > 0}}" class="s-n">{{selCount}}</view>
+      <image class="s-ic" src="{{dark ? '/images/ic/filter-white.png' : '/images/ic/filter-ink.png'}}" mode="aspectFit" />
+    </view>
+  </view>
+
+  <view class="demo-note">示例商品：图片、品牌与价格为演示排版，不提供下单与支付。</view>
+
+  <!-- 已选条件：在列表页就能一个个删掉，不用再进筛选页 -->
+  <view wx:if="{{chosen.length > 0}}" class="chosen">
+    <view
+      class="ci m-pop-lg"
+      wx:for="{{chosen}}"
+      wx:key="id"
+      bindtap="removeOne"
+      data-k="{{item.k}}"
+      data-v="{{item.v}}"
+    >
+      <text class="ci-v">{{item.v}}</text>
+      <image class="ci-x" src="/images/ic/close-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="ci cl" bindtap="clearAll">清空</view>
+  </view>
+
+  <!-- 商品网格：切换分类时整块侧向推入重播 -->
+  <view class="grid {{swapCls}}">
+    <view
+      class="pd m-pop m-st"
+      style="animation-delay:{{item._d}}ms"
+      wx:for="{{listView}}"
+      wx:key="id"
+      bindtap="onProduct"
+      data-id="{{item.id}}"
+    >
+      <view class="pd-im m-tilt m-glare" hover-class="press">
+        <image src="{{item.img}}" mode="aspectFill" />
+        <view wx:if="{{item.demo}}" class="sample-tag">示例</view>
+        <view wx:if="{{item.tag}}" class="pd-tg">{{item.tag}}</view>
+        <view class="pd-fv {{item._beat ? 'm-heart' : ''}}" catchtap="onFav" data-id="{{item.id}}">
+          <image src="{{item.fav ? '/images/ic/heart-fill-ink.png' : (dark ? '/images/ic/heart-white.png' : '/images/ic/heart-ink.png')}}" mode="aspectFit" />
+        </view>
+      </view>
+      <view class="pd-bd">{{item.brand}}</view>
+      <view class="pd-nm">{{item.name}}</view>
+      <view class="pd-pc" wx:if="{{item.priceText}}">{{item.priceText}}</view>
+      <view class="pd-pc np" wx:else>价格以商家为准</view>
+    </view>
+  </view>
+
+  <view wx:if="{{list.length === 0}}" class="empty">
+    <view class="e">没有符合条件的商品</view>
+    <view class="s">试试减少几个筛选条件</view>
+    <view class="eb" bindtap="clearAll" hover-class="press">清空筛选</view>
+  </view>
+
+  <view class="safe-pad"></view>
+</view>
+<view class="fade-bottom {{dark ? 'dk' : ''}}"></view>

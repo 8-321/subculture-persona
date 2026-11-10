@@ -1,0 +1,116 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="topbar capr" style="padding-right:{{capR}}px">
+    <view class="hl">
+      <image class="logo" src="{{dark ? '/images/ic/logo-white.png' : '/images/ic/logo-ink.png'}}" mode="aspectFit" />
+      <view class="bt">
+        <view class="brand">第二文化</view>
+        <view class="pagename">我的</view>
+      </view>
+    </view>
+    <view class="icbtn" bindtap="onSettings" hover-class="press">
+      <image class="ic-w" src="/images/ic/grid-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+  </view>
+
+  <!-- 个人头部 -->
+  <view class="mine-hero" bindtap="onHeroTap">
+    <image class="mh-img" src="{{heroImg}}" mode="aspectFill" />
+    <view class="mh-sc"></view>
+    <view class="mh-tx">
+      <view class="mh-k">{{user ? '你的隐藏亚文化人格' : '还没有测过'}}</view>
+      <view class="mh-n">{{heroName}}</view>
+      <view class="mh-d">{{heroDesc}}</view>
+    </view>
+  </view>
+
+  <!-- 我的兴趣 -->
+  <view class="sect">
+    <view class="h">我的兴趣</view>
+    <view class="m" bindtap="onEditInterest">编辑</view>
+  </view>
+  <scroll-view class="icg" scroll-x show-scrollbar="{{false}}">
+    <view class="c" wx:for="{{interests}}" wx:key="id">
+      <image src="{{item.img}}" mode="aspectFill" />
+      <view class="nm">{{item.name}}</view>
+    </view>
+    <view wx:if="{{interests.length === 0}}" class="c add" bindtap="onEditInterest">
+      <image src="/images/ic/plus-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      <view class="nm">去选择</view>
+    </view>
+  </scroll-view>
+
+  <!-- 三宫格 -->
+  <view class="tiles">
+    <view class="tile" bindtap="onFav">
+      <view class="n">{{stat.fav}}</view>
+      <view class="l">我的收藏</view>
+    </view>
+    <view class="tile" bindtap="onLike">
+      <view class="n">{{stat.like}}</view>
+      <view class="l">我的点赞</view>
+    </view>
+    <view class="tile" bindtap="onFollow">
+      <view class="n">{{stat.follow}}</view>
+      <view class="l">关注的商家</view>
+    </view>
+  </view>
+
+  <!-- 申请成为商家 -->
+  <view class="rows">
+    <view class="cta" bindtap="onMerchant" hover-class="press">
+      <image class="cta-ic" src="/images/ic/crown-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      <text>商家登记</text>
+      <image class="go-ic" src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+
+    <view class="row" bindtap="onDrafts" hover-class="press">
+      <view class="ic-24"><image src="/images/ic/edit-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" /></view>
+      <view class="t">我的草稿</view>
+      <view class="rt">{{stat.draft}} 篇</view>
+      <image class="go-ic" src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+
+    <view class="row" bindtap="onCoop" hover-class="press">
+      <view class="ic-24"><image src="/images/ic/culture-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" /></view>
+      <view class="t">品牌与场地合作</view>
+      <view class="rt">开放</view>
+      <image class="go-ic" src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+
+    <view class="row" bindtap="onHistory" hover-class="press">
+      <view class="ic-24"><image src="/images/ic/clock-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" /></view>
+      <view class="t">浏览历史</view>
+      <view class="rt">{{stat.history}} 条</view>
+      <image class="go-ic" src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+
+    <view class="row" bindtap="onReports" hover-class="press">
+      <view class="ic-24"><image src="/images/ic/bookmark-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" /></view>
+      <view class="t">我的测试报告</view>
+      <view class="rt">{{stat.report}} 份</view>
+      <image class="go-ic" src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+
+    <view class="row" bindtap="onMyReport" hover-class="press">
+      <view class="ic-24"><image src="/images/ic/trash-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" /></view>
+      <view class="t">我的举报</view>
+      <view class="rt">{{stat.reportIdx}} 条</view>
+      <image class="go-ic" src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+  </view>
+
+  <!-- 深色模式 -->
+  <view class="swrow">
+    <image class="sw-ic" src="/images/ic/moon-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    <view class="t">深色模式</view>
+    <view class="rt">当前：{{dark ? '深色' : '浅色'}}</view>
+    <view class="sw {{dark ? 'on' : ''}}" bindtap="toggleTheme">
+      <view class="knob"></view>
+    </view>
+  </view>
+
+  <view class="safe-pad"></view>
+</view>
+<view class="fade-bottom {{dark ? 'dk' : ''}}"></view>

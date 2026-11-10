@@ -1,0 +1,63 @@
+.status-space { width: 100%; }
+.navbar { display: flex; align-items: center; justify-content: space-between; padding: 0 40rpx; margin-top: 8rpx; }
+.navbar .ttl { flex: 1; }
+.navbtn { width: 76rpx; height: 76rpx; border-radius: 50%; background: var(--card);
+  border: 1rpx solid var(--line-2); display: flex; align-items: center; justify-content: center; flex: 0 0 76rpx; }
+.navbtn image { width: 34rpx; height: 34rpx; }
+.press { opacity: .82; }
+
+.shot { margin: 20rpx 40rpx 0; height: 520rpx; border-radius: 48rpx; overflow: hidden; }
+.shot image { width: 100%; height: 100%; }
+.shot-meta { display: flex; align-items: center; justify-content: space-between; padding: 0 56rpx; margin-top: -60rpx;
+  position: relative; z-index: 2; }
+.shot-meta .tg { height: 40rpx; padding: 0 16rpx; border-radius: 20rpx; background: rgba(17,17,20,.62);
+  color: #FFFFFF; font-size: 19rpx; font-weight: 800; display: flex; align-items: center; }
+.pg-no { height: 40rpx; padding: 0 18rpx; border-radius: 20rpx; background: rgba(17,17,20,.62);
+  color: #FFFFFF; font-size: 19rpx; font-weight: 700; display: flex; align-items: center; }
+
+.card { margin: 24rpx 40rpx 0; background: var(--card); border-radius: 48rpx; padding: 32rpx;
+  box-shadow: var(--shadow-card); }
+.pinfo .pr { display: flex; align-items: baseline; gap: 20rpx; }
+.pinfo .pc { font-size: 44rpx; font-weight: 800; color: var(--text); }
+.pinfo .sold { font-size: 21rpx; color: var(--text-3); }
+.pinfo .nm { font-size: 28rpx; font-weight: 700; margin-top: 14rpx; line-height: 1.4; color: var(--text); }
+.pinfo .chips { display: flex; gap: 12rpx; margin-top: 20rpx; }
+.pinfo .ch { height: 44rpx; padding: 0 18rpx; border-radius: 22rpx; background: var(--card-2);
+  font-size: 20rpx; color: var(--text-2); display: flex; align-items: center; }
+
+.shopcard { display: flex; align-items: flex-start; gap: 20rpx; }
+.shopcard .av { width: 76rpx; height: 76rpx; border-radius: 24rpx; background: var(--ink); color: var(--on-ink);
+  font-size: 32rpx; font-weight: 800; display: flex; align-items: center; justify-content: center; flex: 0 0 76rpx; }
+.shopcard .tx { flex: 1; min-width: 0; }
+.shopcard .nrow { display: flex; align-items: center; min-width: 0; }
+.shopcard .tx .t { font-size: 27rpx; font-weight: 800; color: var(--text); flex: 0 1 auto; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.shopcard .tx .d { font-size: 20rpx; line-height: 1.55; color: var(--text-3); margin-top: 8rpx; }
+.shopcard .sample-inline { margin-left: 8rpx; padding: 0; background: transparent; font-weight: 400; }
+.shopcard .go { align-self: center; display: flex; align-items: center; gap: 6rpx; font-size: 23rpx; font-weight: 700; color: var(--text-2); flex: 0 0 auto; }
+.shopcard .go image { width: 22rpx; height: 22rpx; }
+
+.svc .st { display: flex; align-items: center; gap: 18rpx; padding: 22rpx 0;
+  border-bottom: 1rpx solid var(--line); }
+.svc .st:last-child { border-bottom: none; }
+.svc .t { font-size: 26rpx; font-weight: 700; color: var(--text); }
+.svc .v { margin-left: auto; font-size: 23rpx; color: var(--text-3); }
+.svc .ic { width: 32rpx; height: 32rpx; }
+.go-ic { width: 24rpx; height: 24rpx; }
+
+.tip-line { text-align: center; font-size: 21rpx; color: var(--text-3); margin-top: 28rpx; }
+
+.bar { position: fixed; left: 0; right: 0; bottom: 0; display: flex; gap: 24rpx;
+  padding: 24rpx 40rpx 48rpx; background: var(--card); box-shadow: 0 -8rpx 32rpx rgba(17,17,20,.08); }
+.btn-o { width: 256rpx; height: 104rpx; border-radius: 999rpx; border: 2rpx solid var(--line-2);
+  color: var(--text); font-size: 29rpx; font-weight: 700; flex: 0 0 256rpx;
+  display: flex; align-items: center; justify-content: center; gap: 12rpx; }
+.btn-o image { width: 34rpx; height: 34rpx; }
+.btn { flex: 1; height: 104rpx; border-radius: 999rpx; background: var(--ink); color: var(--on-ink);
+  font-size: 32rpx; font-weight: 800; display: flex; align-items: center; justify-content: center; gap: 14rpx; }
+.btn image { width: 32rpx; height: 32rpx; }
+
+.np { font-size: 22rpx; font-weight: 600; color: var(--text-3); }
+
+
+.share-btn { padding: 0; margin: 0; line-height: 1; }
+.share-btn::after { border: none; }

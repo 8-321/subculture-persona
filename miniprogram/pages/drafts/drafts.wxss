@@ -1,0 +1,27 @@
+.status-space { width: 100%; }
+.navbar { display: flex; align-items: center; justify-content: space-between; padding: 0 40rpx; margin-top: 8rpx; }
+.ttl { font-family: "Songti SC", "STSong", "Noto Serif SC", serif; font-size: 27rpx; font-weight: 700; letter-spacing: 4rpx; }
+.navbtn { width: 76rpx; height: 76rpx; border-radius: 50%; background: var(--card);
+  border: 1rpx solid var(--line-2); display: flex; align-items: center; justify-content: center; flex: 0 0 76rpx; }
+.navbtn image { width: 34rpx; height: 34rpx; }
+.new { font-size: 23rpx; font-weight: 700; padding: 16rpx 0 16rpx 16rpx; }
+.press { opacity: .82; }
+
+.empty { padding: 160rpx 60rpx 0; text-align: center; }
+.e-t { font-family: "Songti SC", "STSong", "Noto Serif SC", serif; font-size: 40rpx; font-weight: 700; }
+.e-s { font-size: 22rpx; line-height: 1.7; color: var(--text-3); margin-top: 16rpx; }
+.e-b { display: inline-flex; margin-top: 40rpx; padding: 22rpx 44rpx; border-radius: 999rpx; background: var(--ink); color: var(--on-ink); font-size: 25rpx; font-weight: 700; }
+
+.list { padding: 22rpx 40rpx 0; }
+.d { display: flex; align-items: center; gap: 20rpx; padding: 22rpx 24rpx; margin-bottom: 16rpx;
+  background: var(--card); border: 1rpx solid var(--line); border-radius: 32rpx; box-shadow: var(--shadow-card); }
+.cv { width: 132rpx; height: 132rpx; flex: 0 0 132rpx; border-radius: 24rpx; overflow: hidden; background: var(--card-2); }
+.cv.ph { display: flex; align-items: center; justify-content: center; border: 1rpx dashed var(--line-2);
+  font-size: 21rpx; font-weight: 700; letter-spacing: 1rpx; color: var(--text-3); }
+.tx { flex: 1; min-width: 0; }
+.t { font-size: 26rpx; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.b { font-size: 21rpx; color: var(--text-3); margin-top: 8rpx; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.m { font-size: 19rpx; color: var(--text-3); margin-top: 10rpx; }
+.go { width: 22rpx; height: 22rpx; }
+.hint { text-align: center; font-size: 19rpx; color: var(--text-3); padding-top: 34rpx; }
+.safe-pad { height: 80rpx; }

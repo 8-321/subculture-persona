@@ -1,0 +1,125 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar capr" style="padding-right:{{capR}}px">
+    <view class="navbtn" bindtap="onBack" hover-class="press">
+      <image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="nav-title">人格档案</view>
+    <button class="navbtn share-btn" open-type="share" hover-class="press">
+      <image src="/images/ic/share-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </button>
+  </view>
+
+  <view class="hero t2-hero">
+    <image src="{{img}}" mode="aspectFill" />
+    <view class="hero-sc"></view>
+    <view class="arch">
+      <text class="arch-k">第 {{serial}} 号</text>
+      <text wx:if="{{isMine}}" class="mine">你的档案</text>
+    </view>
+    <view class="hero-tx">
+      <view class="eb t2-text">第二文化 · 人格档案</view>
+      <view class="nm t2-text">{{t.cn}}</view>
+      <view class="nick t2-text">{{t.nickname}} · 标志物：{{t.symbol}}</view>
+      <view class="tag t2-text">{{t.tagline}}</view>
+    </view>
+  </view>
+
+  <view class="quote">「{{t.quote}}」</view>
+
+  <view class="card">
+    <view class="hd"><view class="t">典型倾向</view><view class="m">这一型的基线，不是你的分数</view></view>
+    <view class="dim" wx:for="{{dims}}" wx:key="key">
+      <view class="dim-top"><text class="dim-n">{{item.name}}</text><text class="dim-v">{{item.value}}</text></view>
+      <view class="dim-bar"><view class="dim-fill" style="width:{{item.value}}%"></view></view>
+    </view>
+  </view>
+
+  <view wx:if="{{misconception}}" class="note">
+    <view class="note-k">一句话说清</view>
+    <view class="note-t">{{misconception}}</view>
+  </view>
+
+  <view class="card why">
+    <view class="hd"><view class="t">为什么像你</view></view>
+    <view class="li" wx:for="{{t.why}}" wx:key="*this">
+      <view class="dt"></view><text>{{item}}</text>
+    </view>
+  </view>
+
+  <view wx:if="{{origin}}" class="card origin">
+    <view class="hd"><view class="t">从哪来</view><view class="m">{{origin.year}}</view></view>
+    <view class="org-line">{{origin.place}}</view>
+    <view class="org-ev">{{origin.event}}</view>
+    <view class="org-k">可核对的事实</view>
+    <view class="fact" wx:for="{{facts}}" wx:key="text">
+      <view class="fact-t">{{item.text}}</view>
+      <view class="fact-s" bindtap="onCopySource" data-url="{{item.url}}">来源：{{item.host}} · 点此复制核对</view>
+    </view>
+  </view>
+
+  <view class="markers">
+    <view class="markers-k">标志物</view>
+    <view class="markers-l">
+      <view class="mk" wx:for="{{markers}}" wx:key="*this">{{item}}</view>
+    </view>
+  </view>
+
+  <view wx:if="{{match}}" class="kin">
+    <view class="kin-card" bindtap="onKin" data-code="{{match.code}}" hover-class="press">
+      <image src="{{match.img}}" mode="aspectFill" />
+      <view class="kin-sc"></view>
+      <view class="kin-tx"><view class="kin-k">合拍</view><view class="kin-n">{{match.cn}} · {{match.nick}}</view></view>
+    </view>
+    <view wx:if="{{clash}}" class="kin-card" bindtap="onKin" data-code="{{clash.code}}" hover-class="press">
+      <image src="{{clash.img}}" mode="aspectFill" />
+      <view class="kin-sc"></view>
+      <view class="kin-tx"><view class="kin-k">相克</view><view class="kin-n">{{clash.cn}} · {{clash.nick}}</view></view>
+    </view>
+  </view>
+
+  <view class="h2">相关测评</view>
+  <view class="tlist">
+    <view class="tr" wx:for="{{tests}}" wx:key="id" bindtap="onTest" data-id="{{item.id}}" hover-class="press">
+      <image class="tr-im" src="{{item.img}}" mode="aspectFill" />
+      <view class="tr-tx">
+        <view class="tr-t">{{item.title}}</view>
+        <view class="tr-d">{{item.qcount}} 题 · {{item.minutes}} 分钟</view>
+      </view>
+      <image class="tr-go" src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+  </view>
+
+  <view class="h2">这一型的选物</view>
+  <view class="mini">
+    <view class="mi" wx:for="{{goods}}" wx:key="id" bindtap="onGood" data-id="{{item.id}}" hover-class="press">
+      <view class="mi-im"><image src="{{item.img}}" mode="aspectFill" /><view wx:if="{{item.demo}}" class="sample-tag">示例</view></view>
+      <view class="mi-bd">{{item.brand}}</view>
+      <view class="mi-nm">{{item.name}}</view>
+      <view class="mi-pc">价格以商家为准</view>
+    </view>
+  </view>
+
+  <view class="h2">延伸阅读</view>
+  <view class="xlist">
+    <view class="xr" wx:for="{{reads}}" wx:key="id" bindtap="onRead" data-id="{{item.id}}" hover-class="press">
+      <image class="th" src="{{item.img}}" mode="aspectFill" />
+      <view class="xt"><view class="t">{{item.title}}</view><view class="d">{{item.cat}} · {{item.time}}</view></view>
+      <image class="go" src="/images/ic/fwd-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+  </view>
+
+  <view class="endnote">人格档案只描述文化倾向，不是心理诊断。</view>
+  <view class="safe-pad"></view>
+
+  <view class="bar">
+    <view class="cbtn {{fav ? 'on' : ''}}" bindtap="onFav" hover-class="press">
+      <image src="{{fav ? '/images/ic/heart-fill-ink.png' : '/images/ic/heart-ink.png'}}" mode="aspectFit" />
+    </view>
+    <view class="btn" bindtap="onStart" hover-class="press">测测我是哪一型</view>
+    <button class="sbtn" open-type="share" hover-class="press">
+      <image src="/images/ic/share-ink.png" mode="aspectFit" />
+    </button>
+  </view>
+</view>

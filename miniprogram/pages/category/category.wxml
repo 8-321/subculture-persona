@@ -1,0 +1,85 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar capr" style="padding-right:{{capR}}px">
+    <view class="navbtn" bindtap="onBack" hover-class="press">
+      <image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="ttl">分类</view>
+    <view class="navbtn" bindtap="onSearch" hover-class="press">
+      <image src="/images/ic/search-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+  </view>
+
+  <view class="body">
+    <!-- 一级：竖排 -->
+    <scroll-view class="rail" scroll-y>
+      <view
+        class="ri {{curTop === index ? 'on' : ''}}"
+        wx:for="{{tree}}"
+        wx:key="id"
+        bindtap="onTop"
+        data-i="{{index}}"
+      >{{item.name}}</view>
+    </scroll-view>
+
+    <!-- 二级：横排可滑 + 网格 -->
+    <scroll-view class="pane" scroll-y>
+      <scroll-view class="subcats" scroll-x show-scrollbar="{{false}}">
+        <view
+          class="sc {{curSub === item ? 'on' : ''}}"
+          wx:for="{{subs}}"
+          wx:key="*this"
+          bindtap="onSub"
+          data-s="{{item}}"
+        >{{item}}</view>
+      </scroll-view>
+
+      <view class="frow">
+        <view class="cnt">{{topName}} · {{curSub}} · 共 {{list.length}} 项</view>
+        <view class="flt {{selCount > 0 ? 'has' : ''}}" bindtap="onFilter" hover-class="press">筛选
+          <view wx:if="{{selCount > 0}}" class="flt-n">{{selCount}}</view>
+          <image src="/images/ic/filter-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+        </view>
+      </view>
+
+      <view class="demo-note cat-note">示例内容：店铺与商品为演示。</view>
+
+      <!-- 已选条件：可逐个删除 -->
+      <view wx:if="{{chosen.length > 0}}" class="chosen">
+        <view class="ci m-pop-lg" wx:for="{{chosen}}" wx:key="id" bindtap="removeOne" data-k="{{item.k}}" data-v="{{item.v}}">
+          <text class="ci-v">{{item.v}}</text>
+          <image class="ci-x" src="/images/ic/close-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+        </view>
+        <view class="ci cl" bindtap="clearAll">清空</view>
+      </view>
+
+      <view class="cgrid">
+        <view
+          class="cc m-pop m-st"
+          style="animation-delay:{{item._d}}ms"
+          wx:for="{{list}}"
+          wx:key="id"
+          bindtap="onItem"
+          data-id="{{item.id}}"
+          hover-class="press"
+        >
+          <view class="im m-glare"><image src="{{item.img}}" mode="aspectFill" /></view>
+          <view class="ct">{{item.title}}</view>
+          <view class="cm">
+            <text class="nm2">{{item.sub}}</text>
+            <text wx:if="{{item.likesText}}" class="lk">{{item.likesText}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{list.length === 0}}" class="empty">
+        <view class="e">这个分类还没有内容</view>
+        <view class="s">换一个二级分类试试</view>
+      </view>
+
+      <view class="safe-pad"></view>
+    </scroll-view>
+  </view>
+</view>
+<view class="fade-bottom {{dark ? 'dk' : ''}}"></view>

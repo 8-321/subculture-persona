@@ -1,0 +1,60 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar capr" style="padding-right:{{capR}}px">
+    <view class="navbtn" bindtap="onBack" hover-class="press">
+      <image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="nav-title">店铺档案</view>
+    <button class="navbtn share-btn" open-type="share" hover-class="press">
+      <image src="/images/ic/share-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </button>
+  </view>
+
+  <view wx:if="{{shop}}" class="hero">
+    <image src="{{shop.img}}" mode="aspectFill" />
+    <view class="hero-sc"></view>
+    <view wx:if="{{shop.demo}}" class="sample-tag">示例</view>
+    <view class="h-tx">
+      <view class="h-k">第二文化 · 店铺档案</view>
+      <view class="h-n">{{shop.name}}</view>
+      <view class="h-tag">
+        <text wx:for="{{shop.tags}}" wx:key="*this" class="h-t">{{item}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{shop}}" class="idcard">
+    <view class="id-l">
+      <view class="id-d">{{shopDesc}}</view>
+
+      <view class="id-s">只做店铺与选物展示，不提供下单、支付或售后。</view>
+    </view>
+    <view class="fo {{follow ? 'on' : ''}}" bindtap="onFollow" hover-class="press">{{follow ? '已关注' : '关注'}}</view>
+  </view>
+
+  <view wx:if="{{shop}}" class="sect">
+    <view class="sect-h">
+      <view class="sect-t">店内在列</view>
+      <view class="sect-m">{{goods.length}} 件</view>
+    </view>
+    <view class="grid">
+      <view class="pd" wx:for="{{goods}}" wx:key="id" bindtap="onProduct" data-id="{{item.id}}" hover-class="press">
+        <view class="pd-im">
+          <image src="{{item.img}}" mode="aspectFill" />
+          <view wx:if="{{item.demo}}" class="sample-tag">示例</view>
+        </view>
+        <view class="pd-nm">{{item.name}}</view>
+        <view class="pd-pc" wx:if="{{item.priceText}}">{{item.priceText}}</view>
+        <view class="pd-pc np" wx:else>价格以商家为准</view>
+      </view>
+    </view>
+    <view wx:if="{{goods.length === 0}}" class="empty">
+      <view class="e">这家店还没有可展示的单品</view>
+      <view class="s">先关注，等商家档案接入后再看</view>
+    </view>
+  </view>
+
+  <view wx:if="{{shop}}" class="endnote">示例店铺与商品只做展示，不构成交易承诺。</view>
+  <view class="safe-pad"></view>
+</view>

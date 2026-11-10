@@ -1,0 +1,108 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{capB}}px"></view>
+
+  <view class="sbar">
+    <image class="s-ic" src="/images/ic/search-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    <input
+      class="inp"
+      value="{{kw}}"
+      focus="{{focus}}"
+      placeholder="搜索测试 · 内容 · 商品"
+      placeholder-class="phc"
+      bindinput="onInput"
+      bindconfirm="onSubmit"
+      confirm-type="search"
+    />
+    <view wx:if="{{kw}}" class="clr" bindtap="onClear">
+      <image src="/images/ic/close-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="cancel" bindtap="onBack">取消</view>
+  </view>
+
+  <!-- 历史搜索 / 热词（未输入时） -->
+  <view wx:if="{{!kw}}" class="block">
+    <view class="bh">
+      <view class="bt">最近搜索</view>
+      <view wx:if="{{history.length}}" class="cl" bindtap="onClearHistory">清空</view>
+    </view>
+    <view class="hw">
+      <view
+        class="w m-pop m-st"
+        style="animation-delay:{{index * 26}}ms"
+        wx:for="{{history}}"
+        wx:key="id"
+        bindtap="onWord"
+        data-w="{{item.kw}}"
+      >{{item.kw}}</view>
+      <view wx:if="{{history.length === 0}}" class="none">还没有搜索记录</view>
+    </view>
+
+    <view class="bh" style="margin-top:36rpx"><view class="bt">推荐搜索</view></view>
+    <view class="hw">
+      <view
+        class="w m-pop m-st"
+        style="animation-delay:{{index * 26 + 60}}ms"
+        wx:for="{{hotView}}"
+        wx:key="v"
+        bindtap="onWord"
+        data-w="{{item.v}}"
+      >{{item.v}}</view>
+    </view>
+  </view>
+
+  <!-- 联想词（输入中 · 防抖 300ms） -->
+  <view wx:if="{{kw && !submitted}}" class="sug">
+    <view class="sg" wx:for="{{sugs}}" wx:key="*this" bindtap="onWord" data-w="{{item}}">
+      <image class="sg-ic" src="/images/ic/search-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      {{item}}
+    </view>
+    <view wx:if="{{sugs.length === 0}}" class="none">没有匹配的联想词</view>
+  </view>
+
+  <!-- 结果 -->
+  <view wx:if="{{submitted}}">
+    <view class="chips">
+      <view class="c {{cur === item.k ? 'on' : ''}}" wx:for="{{tabs}}" wx:key="k" bindtap="onTab" data-k="{{item.k}}">{{item.n}}</view>
+      <view class="c fl {{selCount > 0 ? 'has' : ''}}" bindtap="onFilter" hover-class="press">
+        筛选
+        <view wx:if="{{selCount > 0}}" class="c-n">{{selCount}}</view>
+        <image src="/images/ic/filter-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      </view>
+    </view>
+
+    <!-- 已选条件：搜索结果也能逐个摘掉 -->
+    <view wx:if="{{chosen.length > 0}}" class="chosen">
+      <view class="ci m-pop-lg" wx:for="{{chosen}}" wx:key="id" bindtap="removeOne" data-k="{{item.k}}" data-v="{{item.v}}">
+        <text class="ci-v">{{item.v}}</text>
+        <image class="ci-x" src="/images/ic/close-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      </view>
+      <view class="ci cl" bindtap="clearAll">清空</view>
+    </view>
+
+    <view class="rows">
+      <view
+        class="row m-rise m-st"
+        style="animation-delay:{{index * 40}}ms"
+        wx:for="{{list}}"
+        wx:key="id"
+        bindtap="onItem"
+        data-id="{{item.id}}"
+        data-type="{{item.type}}"
+      >
+        <image class="ic" src="{{item.img}}" mode="aspectFill" />
+        <view class="rtx">
+          <view class="t">{{item.title}}</view>
+          <view class="d">{{item.desc}}<text wx:if="{{item.sample}}" class="sample-tag inline">示例</text></view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{list.length === 0}}" class="empty">
+      <view class="e">没有找到相关内容</view>
+      <view class="s">换个词试试，比如「朋克」「洛丽塔」</view>
+    </view>
+  </view>
+
+  <view class="safe-pad"></view>
+</view>
+<view class="fade-bottom {{dark ? 'dk' : ''}}"></view>

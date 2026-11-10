@@ -1,0 +1,508 @@
+/* ==========================================================================
+   第二文化 · 动效库  motion.wxss
+   --------------------------------------------------------------------------
+   参数底座：《第二文化_动效设计规范》V1.0
+     时长 t0 100 / t1 240 / t2 300 / t3 380 / t4 420 / t5 1200~3000
+     曲线 A cubic-bezier(.2,0,0,1)   标准减速（按压、开关）
+           B cubic-bezier(.34,1.56,.64,1)  过冲回弹（弹性微缩、收藏心）
+           C cubic-bezier(.22,1,.36,1)    快出慢收（转场、入场）
+           D cubic-bezier(.65,.05,.36,1)  缓入快出（抽屉、遮罩）
+           E linear                      匀速（骨架、跑马灯）
+           F cubic-bezier(.33,1,.68,1)    长尾收束（数字滚动、进度）
+   效果目录：参照 reactbits 组件体系（Text Animations / Animations /
+             Components / Backgrounds 四类）的效果思路，用 WXSS 重写：
+       BlurText → .m-blur        SplitText → .m-mask / .m-lines
+       ShinyText → .m-shine      CountUp → JS motion.countUp（此处只给容器）
+       ScrollReveal → .m-rise + JS 揭示调度
+       ClickSpark → .m-spark（JS 注入坐标）
+       GlareHover → .m-glare     TiltCard → .m-tilt（2.5°）
+       StarBorder → .m-border    PixelTransition → .m-pixels
+       Aurora / DotGrid → .m-aurora / .m-dotgrid（纯灰阶，不破坏无彩色规则）
+   硬规则：全屏无彩色 —— 所有光晕、流光、扫光一律黑/灰/白，绝不上色。
+   性能纪律：只动 transform / opacity / filter；不改 width/height/top/left。
+   ========================================================================== */
+
+page {
+  --m-t0: 100ms;
+  --m-t1: 240ms;
+  --m-t2: 300ms;
+  --m-t3: 380ms;
+  --m-t4: 420ms;
+  --m-ea: cubic-bezier(.2, 0, 0, 1);
+  --m-eb: cubic-bezier(.34, 1.56, .64, 1);
+  --m-ec: cubic-bezier(.22, 1, .36, 1);
+  --m-ed: cubic-bezier(.65, .05, .36, 1);
+  --m-ef: cubic-bezier(.33, 1, .68, 1);
+}
+
+/* 交错入场：JS 把 --m-d 写成行内 style，这里统一吃掉
+   注意：写在各动画定义之前，所以 delay 用 !important 兜底，避免被 animation 简写重置 */
+.m-st {
+  animation-delay: var(--m-d, 0ms) !important;
+  animation-fill-mode: both;
+}
+
+/* 滚动揭示（ScrollReveal）：默认隐形，进入视口后由 JS 挂上 m-rise 播放
+   保险：若 IntersectionObserver 不可用，motion.reveal 会把全部项直接置为可见 */
+.m-rv { opacity: 0; }
+.m-rv.m-rise { opacity: 1; }
+
+/* ==========================================================================
+   一、入场类 Entrance（8 种 · 用于卡片 / 列表 / 分区块进场）
+   ========================================================================== */
+
+/* 1 淡入：最轻，用于局部刷新 */
+.m-fade { animation: mFade 240ms cubic-bezier(.2, 0, 0, 1) both; }
+@keyframes mFade { from { opacity: 0; } to { opacity: 1; } }
+
+/* 2 上浮淡入 24px：列表默认入场 */
+.m-rise { animation: mRise 300ms cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes mRise {
+  from { opacity: 0; transform: translate3d(0, 24rpx, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+/* 3 上浮淡入 40px：分区块 / 大卡片 */
+.m-rise-lg { animation: mRiseLg 420ms cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes mRiseLg {
+  from { opacity: 0; transform: translate3d(0, 40rpx, 0) scale(.985); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0) scale(1); }
+}
+
+/* 4 模糊上浮（BlurText）：标题、人格名 —— 字从虚到实 */
+.m-blur { animation: mBlur 380ms cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes mBlur {
+  from { opacity: 0; filter: blur(12rpx); transform: translate3d(0, 18rpx, 0); }
+  60%  { opacity: 1; }
+  to   { opacity: 1; filter: blur(0); transform: translate3d(0, 0, 0); }
+}
+
+/* 5 弹性微缩（曲线 B）：按钮按压、图标出现 */
+.m-pop { animation: mPop 240ms cubic-bezier(.34, 1.56, .64, 1) both; }
+@keyframes mPop {
+  from { opacity: 0; transform: scale(.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* 6 大过冲弹入：结果页人格名、空状态插画 */
+.m-pop-lg { animation: mPopLg 420ms cubic-bezier(.34, 1.56, .64, 1) both; }
+@keyframes mPopLg {
+  0%   { opacity: 0; transform: scale(.86); }
+  55%  { opacity: 1; transform: scale(1.06); }
+  78%  { transform: scale(.985); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* 7 落下（曲线 D）：顶部提示条、Toast 类元素 */
+.m-drop { animation: mDrop 300ms cubic-bezier(.65, .05, .36, 1) both; }
+@keyframes mDrop {
+  from { opacity: 0; transform: translate3d(0, -28rpx, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+/* 8 3D 翻转入场：横向卡片、尺码选择 */
+.m-flip { animation: mFlip 420ms cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes mFlip {
+  from { opacity: 0; transform: perspective(1200rpx) rotateY(-18deg) translate3d(0, 16rpx, 0); }
+  to   { opacity: 1; transform: perspective(1200rpx) rotateY(0) translate3d(0, 0, 0); }
+}
+
+/* 9 侧向推入：分类切换后的内容区 */
+.m-slide-r { animation: mSlideR 380ms cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes mSlideR {
+  from { opacity: 0; transform: translate3d(48rpx, 0, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+.m-slide-l { animation: mSlideL 380ms cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes mSlideL {
+  from { opacity: 0; transform: translate3d(-48rpx, 0, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+/* 内容区切换重播专用：CSS 动画只在 animation-name 变化时才重播，
+   所以准备一份同名不同 keyframes 的「B 面」，JS 在两个类名间来回切 */
+.m-slide-r-b { animation: mSlideRB 380ms cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes mSlideRB {
+  from { opacity: 0; transform: translate3d(48rpx, 0, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+.m-fade-b { animation: mFadeB 300ms cubic-bezier(.2, 0, 0, 1) both; }
+@keyframes mFadeB { from { opacity: 0; } to { opacity: 1; } }
+
+/* 10 遮罩揭示（SplitText 逐行）：文字被一条黑幕从左扫到右露出 */
+.m-mask { animation: mMask 420ms cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes mMask {
+  from { clip-path: inset(0 100% 0 0); opacity: .2; }
+  to   { clip-path: inset(0 0 0 0); opacity: 1; }
+}
+
+/* 11 缩放展开：抽屉分组、折叠面板 */
+.m-unfold {
+  animation: mUnfold 380ms cubic-bezier(.22, 1, .36, 1) both;
+  transform-origin: top center;
+}
+@keyframes mUnfold {
+  from { opacity: 0; transform: scaleY(.82) translate3d(0, -12rpx, 0); }
+  to   { opacity: 1; transform: scaleY(1) translate3d(0, 0, 0); }
+}
+
+/* 12 像素化过渡（PixelTransition 思路）：图片切换用 */
+.m-pixels { animation: mPixels 380ms cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes mPixels {
+  0%   { opacity: 0; filter: blur(16rpx) contrast(1.5); transform: scale(1.06); }
+  45%  { opacity: .6; filter: blur(6rpx) contrast(1.2); transform: scale(1.02); }
+  100% { opacity: 1; filter: blur(0) contrast(1); transform: scale(1); }
+}
+
+/* ==========================================================================
+   二、强调类 Emphasis（10 种 · 用于反馈、hover、高亮）
+   ========================================================================== */
+
+/* 13 扫光（ShinyText）：文字持续流光，纯灰阶
+   安全兜底：只有浏览器支持 background-clip:text 时才把文字设为透明，
+   否则会出现「字消失」的严重问题 */
+.m-shine { position: relative; }
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .m-shine {
+    background-image: linear-gradient(100deg,
+      var(--text) 0%, var(--text) 38%,
+      var(--text-3) 50%,
+      var(--text) 62%, var(--text) 100%);
+    background-size: 260% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: mShine 2600ms linear infinite;
+  }
+}
+@keyframes mShine {
+  from { background-position: 180% 0; }
+  to   { background-position: -80% 0; }
+}
+
+/* 14 单次扫光：进入时扫一遍就停（比常亮克制） */
+.m-shine-once {
+  position: relative;
+  overflow: hidden;
+}
+.m-shine-once::after {
+  content: '';
+  position: absolute; top: 0; left: -60%;
+  width: 42%; height: 100%;
+  background: linear-gradient(100deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .58) 50%, rgba(255, 255, 255, 0) 100%);
+  transform: skewX(-18deg);
+  animation: mShineOnce 900ms cubic-bezier(.22, 1, .36, 1) both;
+}
+@keyframes mShineOnce {
+  from { left: -60%; }
+  to   { left: 128%; }
+}
+
+/* 15 弥散光晕呼吸（Aurora 思路 · 黑灰化） */
+.m-glow {
+  position: relative;
+}
+.m-glow::before {
+  content: '';
+  position: absolute; left: 50%; top: 50%;
+  width: 128%; height: 128%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at 50% 50%, rgba(17, 17, 20, .16) 0%, rgba(17, 17, 20, 0) 68%);
+  opacity: .5; z-index: -1;
+  animation: mGlow 2600ms ease-in-out infinite;
+}
+@keyframes mGlow {
+  0%, 100% { opacity: .34; transform: translate(-50%, -50%) scale(.96); }
+  50%      { opacity: .68; transform: translate(-50%, -50%) scale(1.04); }
+}
+
+/* 16 流光边框（StarBorder · 灰阶） */
+.m-border {
+  position: relative;
+  overflow: hidden;
+}
+.m-border::before {
+  content: '';
+  position: absolute; inset: -180%;
+  background: conic-gradient(from 0deg,
+    rgba(17, 17, 20, 0) 0deg,
+    rgba(17, 17, 20, .1) 40deg,
+    rgba(17, 17, 20, .34) 70deg,
+    rgba(17, 17, 20, .1) 100deg,
+    rgba(17, 17, 20, 0) 160deg,
+    rgba(17, 17, 20, 0) 360deg);
+  animation: mBorderSpin 3600ms linear infinite;
+}
+.theme-dark .m-border::before {
+  background: conic-gradient(from 0deg,
+    rgba(245, 245, 247, 0) 0deg,
+    rgba(245, 245, 247, .08) 40deg,
+    rgba(245, 245, 247, .3) 70deg,
+    rgba(245, 245, 247, .08) 100deg,
+    rgba(245, 245, 247, 0) 160deg,
+    rgba(245, 245, 247, 0) 360deg);
+}
+@keyframes mBorderSpin { to { transform: rotate(360deg); } }
+
+/* 17 高光掠过（GlareHover）：按下时一道光扫过卡面 */
+.m-glare { position: relative; overflow: hidden; }
+.m-glare::after {
+  content: '';
+  position: absolute; top: -40%; left: -80%;
+  width: 60%; height: 180%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .42) 50%, rgba(255, 255, 255, 0) 100%);
+  transform: rotate(14deg) translate3d(0, 0, 0);
+  transition: transform 520ms cubic-bezier(.22, 1, .36, 1), opacity 240ms linear;
+  opacity: 0; pointer-events: none;
+}
+.m-glare.press::after { opacity: 1; transform: rotate(14deg) translate3d(240%, 0, 0); }
+
+/* 18 3D 倾斜 2.5°（TiltCard）：按下微微立起来 */
+.m-tilt {
+  transform: perspective(1400rpx) rotateX(0) rotateY(0) translate3d(0, 0, 0);
+  transition: transform 260ms cubic-bezier(.22, 1, .36, 1), box-shadow 260ms linear;
+  transform-style: preserve-3d;
+}
+.m-tilt.press {
+  transform: perspective(1400rpx) rotateX(2.5deg) rotateY(-2.5deg) translate3d(0, -6rpx, 0) scale(.985);
+}
+
+/* 19 磁吸（MagneticButton）：跟手位移由 JS 写 --mx/--my */
+.m-magnet {
+  transform: translate3d(var(--mx, 0px), var(--my, 0px), 0) scale(var(--ms, 1));
+  transition: transform 260ms cubic-bezier(.22, 1, .36, 1);
+}
+
+/* 20 果冻抖动：表单校验失败 */
+.m-jelly { animation: mJelly 380ms cubic-bezier(.34, 1.56, .64, 1) both; }
+@keyframes mJelly {
+  0%   { transform: scaleX(1); }
+  22%  { transform: scaleX(.965) translate3d(-10rpx, 0, 0); }
+  46%  { transform: scaleX(1.02) translate3d(8rpx, 0, 0); }
+  72%  { transform: scaleX(.99) translate3d(-4rpx, 0, 0); }
+  100% { transform: scaleX(1) translate3d(0, 0, 0); }
+}
+
+/* 21 收藏心三段 0.92 → 1.18 → 1（曲线 B，共 400ms） */
+.m-heart { animation: mHeart 400ms cubic-bezier(.34, 1.56, .64, 1) both; }
+@keyframes mHeart {
+  0%   { transform: scale(.92); }
+  38%  { transform: scale(1.18); }
+  70%  { transform: scale(.96); }
+  100% { transform: scale(1); }
+}
+
+/* 22 选中回弹：元素已存在、只做尺度过冲，不淡入淡出（答题选项、单选卡） */
+.m-sel { animation: mSel 300ms cubic-bezier(.34, 1.56, .64, 1) both; }
+@keyframes mSel {
+  0%   { transform: scale(.985); }
+  45%  { transform: scale(1.028); }
+  100% { transform: scale(1); }
+}
+
+/* 22b 水波纹（ClickSpark 静态版）：按钮点击一圈扩散 */
+.m-ripple { position: relative; overflow: hidden; }
+.m-ripple::before {
+  content: '';
+  position: absolute; left: 50%; top: 50%;
+  width: 20rpx; height: 20rpx; margin: -10rpx 0 0 -10rpx;
+  border-radius: 50%;
+  background: rgba(17, 17, 20, .16);
+  opacity: 0;
+  animation: mRipple 520ms cubic-bezier(.22, 1, .36, 1) both;
+}
+@keyframes mRipple {
+  from { opacity: .5; transform: scale(1); }
+  to   { opacity: 0; transform: scale(16); }
+}
+
+/* 23 点击火花（配合 JS 注入的 .spark 粒子） */
+.spark-layer {
+  position: fixed; left: 0; top: 0; right: 0; bottom: 0;
+  pointer-events: none; z-index: 999;
+}
+.spark {
+  position: absolute; width: 10rpx; height: 10rpx; border-radius: 50%;
+  background: var(--ink);
+  animation: mSpark 520ms cubic-bezier(.22, 1, .36, 1) forwards;
+}
+@keyframes mSpark {
+  from { opacity: .9; transform: translate3d(0, 0, 0) scale(1); }
+  to   { opacity: 0; transform: translate3d(var(--sx, 0), var(--sy, 0), 0) scale(.2); }
+}
+
+/* ==========================================================================
+   三、循环类 Loop（6 种 · 用于背景、加载、氛围）
+   ========================================================================== */
+
+/* 24 呼吸：加载光环 */
+.m-breathe { animation: mBreathe 2400ms ease-in-out infinite; }
+@keyframes mBreathe {
+  0%, 100% { transform: scale(.92); opacity: .55; }
+  50%      { transform: scale(1.06); opacity: 1; }
+}
+
+/* 25 悬浮：装饰元素缓慢上下 */
+.m-float { animation: mFloat 3200ms ease-in-out infinite; }
+@keyframes mFloat {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, -14rpx, 0); }
+}
+
+/* 26 Ken Burns：轮播主图缓慢推近（8 秒一轮） */
+.m-kenburns { animation: mKb 8000ms ease-in-out infinite alternate; }
+@keyframes mKb {
+  from { transform: scale(1) translate3d(0, 0, 0); }
+  to   { transform: scale(1.09) translate3d(-1.6%, -1.2%, 0); }
+}
+
+/* 27 骨架微光（匀速 E） */
+.m-shimmer {
+  position: relative; overflow: hidden;
+  background: var(--card-2);
+}
+.m-shimmer::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .55) 50%, rgba(255, 255, 255, 0) 100%);
+  animation: mShimmer 1400ms linear infinite;
+}
+@keyframes mShimmer {
+  from { transform: translate3d(-100%, 0, 0); }
+  to   { transform: translate3d(100%, 0, 0); }
+}
+
+/* 28 点脉冲：轮播指示点、红点 */
+.m-pulse-dot { animation: mPulseDot 1800ms ease-in-out infinite; }
+@keyframes mPulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50%      { transform: scale(1.35); opacity: .45; }
+}
+
+/* 29 波浪位移：背景纹理缓慢流动 */
+.m-wave { animation: mWave 9000ms ease-in-out infinite alternate; }
+@keyframes mWave {
+  from { transform: translate3d(0, 0, 0) scale(1.02); }
+  to   { transform: translate3d(-3%, -2%, 0) scale(1.1); }
+}
+
+/* 30 点阵背景（DotGrid · 静态铺底 + 缓慢位移，灰阶） */
+.m-dotgrid {
+  background-image: radial-gradient(var(--line-2) 1rpx, transparent 1rpx);
+  background-size: 32rpx 32rpx;
+  animation: mDot 12000ms linear infinite;
+}
+@keyframes mDot {
+  from { background-position: 0 0; }
+  to   { background-position: 32rpx 32rpx; }
+}
+
+/* ==========================================================================
+   四、转场类 Transition（T1~T5 · 规范 §6）
+   ========================================================================== */
+
+/* T1 推入 380ms / C：常规二级页 */
+.t1-in { animation: t1In 380ms cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes t1In {
+  from { opacity: .4; transform: translate3d(100%, 0, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+/* 旧页后退 24px 并压暗 6%（用在新页根节点做「退场感」时挂在遮罩上） */
+.t1-out { animation: t1Out 380ms cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes t1Out {
+  from { opacity: 1; transform: translate3d(0, 0, 0); }
+  to   { opacity: .94; transform: translate3d(-24px, 0, 0); }
+}
+
+/* T2 共享元素 420ms / C：卡片 → 详情，图片原地放大成头图 */
+.t2-hero { animation: t2Hero 420ms cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes t2Hero {
+  from { transform: scale(.92); opacity: .55; }
+  to   { transform: scale(1); opacity: 1; }
+}
+/* 文字内容延迟 80ms 淡入 */
+.t2-text { animation: t2Text 420ms cubic-bezier(.22, 1, .36, 1) 80ms both; }
+@keyframes t2Text {
+  from { opacity: 0; transform: translate3d(0, 16rpx, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+/* T3 抽屉 420ms / D：筛选页、底部弹层（本项目的筛选页用这个进） */
+.t3-up { animation: t3Up 420ms cubic-bezier(.65, .05, .36, 1) both; }
+@keyframes t3Up {
+  from { transform: translate3d(0, 100%, 0); }
+  to   { transform: translate3d(0, 0, 0); }
+}
+.t3-mask { animation: mFade 300ms cubic-bezier(.65, .05, .36, 1) both; }
+/* 关闭：抽屉落下（JS 先加 .t3-down 再 420ms 后 navigateBack） */
+.t3-down { animation: t3Down 420ms cubic-bezier(.65, .05, .36, 1) both; }
+@keyframes t3Down {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(0, 100%, 0); }
+}
+
+/* T4 弹层 300ms / B：确认框，从 0.94 放大到 1 带弹性 */
+.t4-pop { animation: t4Pop 300ms cubic-bezier(.34, 1.56, .64, 1) both; }
+@keyframes t4Pop {
+  from { opacity: 0; transform: scale(.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* T5 Tab 切换 320ms / C：内容淡入 + 上移 8px */
+.t5-in { animation: t5In 320ms cubic-bezier(.22, 1, .36, 1) both; }
+@keyframes t5In {
+  from { opacity: 0; transform: translate3d(0, 8px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+/* ==========================================================================
+   五、减弱动效降级（规范 §7）
+   原则：位置类动画 → 直接落到终值；循环氛围动画 → 停掉；
+        保留 opacity 淡入（100ms）作为「发生了什么」的最小提示。
+   ========================================================================== */
+.reduce-motion .m-rise,
+.reduce-motion .m-rise-lg,
+.reduce-motion .m-blur,
+.reduce-motion .m-pop,
+.reduce-motion .m-pop-lg,
+.reduce-motion .m-drop,
+.reduce-motion .m-flip,
+.reduce-motion .m-slide-r,
+.reduce-motion .m-slide-r-b,
+.reduce-motion .m-slide-l,
+.reduce-motion .m-mask,
+.reduce-motion .m-unfold,
+.reduce-motion .m-pixels,
+.reduce-motion .m-heart,
+.reduce-motion .m-sel,
+.reduce-motion .m-jelly,
+.reduce-motion .t1-in,
+.reduce-motion .t2-hero,
+.reduce-motion .t2-text,
+.reduce-motion .t3-up,
+.reduce-motion .t4-pop,
+.reduce-motion .t5-in {
+  animation: mFade 100ms linear both !important;
+}
+
+.reduce-motion .m-shine,
+.reduce-motion .m-glow::before,
+.reduce-motion .m-border::before,
+.reduce-motion .m-breathe,
+.reduce-motion .m-float,
+.reduce-motion .m-kenburns,
+.reduce-motion .m-pulse-dot,
+.reduce-motion .m-wave,
+.reduce-motion .m-dotgrid,
+.reduce-motion .m-shimmer::after {
+  animation: none !important;
+}
+
+.reduce-motion .m-shine {
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  color: var(--text);
+}
+
+.reduce-motion .spark-layer { display: none; }

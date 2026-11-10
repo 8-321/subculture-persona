@@ -1,0 +1,18 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="wrap-c">
+    <view class="halo {{reduce ? 'still' : ''}}">
+      <view class="h1"></view>
+      <view class="h2"></view>
+      <view class="core">
+        <image src="/images/ic/logo-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+      </view>
+    </view>
+
+    <view class="tip">{{tipText}}</view>
+    <view class="sub">30 道场景题 · 14 种人格 · 四维度报告</view>
+
+    <view class="bar"><view class="fill" style="width:{{percent}}%"></view></view>
+
+    <view wx:if="{{retry}}" class="retry" bindtap="onRetry">重新生成</view>
+  </view>
+</view>

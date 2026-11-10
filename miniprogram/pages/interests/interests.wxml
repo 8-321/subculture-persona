@@ -1,0 +1,32 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar capr" style="padding-right:{{capR}}px">
+    <view class="navbtn" bindtap="onBack" hover-class="press">
+      <image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="rt">最后一步</view>
+  </view>
+
+  <view class="big">选择你感兴趣的亚文化</view>
+  <view class="sub">可多选，之后随时可以改。</view>
+
+  <view class="icg">
+    <view class="c {{item.on ? 'on' : ''}}" wx:for="{{list}}" wx:key="id" bindtap="onPick" data-n="{{item.name}}">
+      <view class="im">
+        <image src="{{item.img}}" mode="aspectFill" />
+        <view wx:if="{{item.on}}" class="ck">
+          <image src="/images/ic/check-white.png" mode="aspectFit" />
+        </view>
+      </view>
+      <view class="nm">{{item.name}}</view>
+    </view>
+  </view>
+
+  <view class="more">还有 {{rest}} 个亚文化可以选
+    <image src="/images/ic/down-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+  </view>
+
+  <view class="cta {{sel.length >= 3 ? '' : 'off'}}" bindtap="onNext">下一步 · 已选 {{sel.length}} 个</view>
+  <view class="safe-pad"></view>
+</view>

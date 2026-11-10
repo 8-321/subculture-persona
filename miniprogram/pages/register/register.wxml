@@ -1,0 +1,54 @@
+<view class="pg {{dark ? 'theme-dark' : ''}} {{reduce ? 'reduce-motion' : ''}} {{tr}}">
+  <view class="status-space" style="height:{{sbh}}px"></view>
+
+  <view class="navbar capr" style="padding-right:{{capR}}px">
+    <view class="navbtn" bindtap="onBack" hover-class="press">
+      <image src="/images/ic/back-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+    </view>
+    <view class="rt" bindtap="onSkip">先逛逛</view>
+  </view>
+
+  <view class="head">
+    <view class="kick">本地档案 · 不需要手机号</view>
+    <view class="big">{{existing ? '欢迎回来' : '先建一个档案'}}</view>
+    <view class="sub">昵称和头像只存在这台手机，换设备不同步，也不上传服务器。</view>
+  </view>
+
+  <view class="ava-wrap">
+    <button class="ava" open-type="chooseAvatar" bindchooseavatar="onAvatar" hover-class="press">
+      <image wx:if="{{avatar}}" class="ava-img" src="{{avatar}}" mode="aspectFill" />
+      <view wx:else class="ava-ph">
+        <image class="ava-ic" src="/images/ic/plus-{{dark ? 'white' : 'ink'}}.png" mode="aspectFit" />
+        <text>选头像</text>
+      </view>
+    </button>
+    <view class="ava-note">可跳过，之后在「我的」里也能改</view>
+  </view>
+
+  <view class="form">
+    <view class="label">你的称呼</view>
+    <input class="input" type="nickname" maxlength="16" placeholder="例如：夜行生物" placeholder-class="phc"
+      value="{{nickname}}" bindinput="onNick" />
+    <view class="counter">{{nickname.length}} / 16</view>
+  </view>
+
+  <view class="agree">
+    <view class="ck {{agreed ? 'on' : ''}}" bindtap="onAgree">
+      <image wx:if="{{agreed}}" src="/images/ic/check-white.png" mode="aspectFit" />
+    </view>
+    <view class="at" bindtap="onAgree">
+      我已阅读并同意
+      <text class="lnk" catchtap="onLink" data-t="terms">《用户协议》</text>
+      与
+      <text class="lnk" catchtap="onLink" data-t="privacy">《隐私政策》</text>
+      ，并知道测试结果仅供兴趣参考。
+    </view>
+  </view>
+
+  <view class="err" wx:if="{{err}}">{{err}}</view>
+
+  <view class="cta {{canSubmit ? '' : 'off'}}" bindtap="onSubmit" hover-class="press">{{existing ? '保存并继续' : '进入第二文化'}}</view>
+
+  <view class="fine">不收集手机号、通讯录与位置，随时可清除。</view>
+  <view class="safe-pad"></view>
+</view>

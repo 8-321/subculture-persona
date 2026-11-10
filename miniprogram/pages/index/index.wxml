@@ -1,0 +1,1 @@
+<view class="boot {{reduce ? 'reduce-motion' : ''}} {{tr}}"><view class="tip">正在进入…</view></view>
